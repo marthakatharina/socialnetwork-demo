@@ -5,3 +5,8 @@ body {
 .title {
     color: rebeccapurple;
 }
+
+.logo-small {
+    width: 100px;
+    height: 100px;
+}

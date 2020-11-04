@@ -1,12 +1,10 @@
 import React from "react";
 import axios from "./axios";
-import { Link } from "react-router-dom";
 
-export default class Registration extends React.Component {
+export default class Login extends React.Component {
     constructor() {
         super();
         this.state = {};
-        // this.handleChange = this.handleChange.bind(this); used with WHEN onChange={this.handleChange}
     }
 
     handleChange(e) {
@@ -20,9 +18,9 @@ export default class Registration extends React.Component {
     }
 
     submit() {
-        console.log("about to submit: ");
+        console.log("about to submit to login");
         axios
-            .post("/registration", this.state)
+            .post("/login", this.state)
             .then((response) => {
                 console.log("response", response);
                 if (response.data.success) {
@@ -40,22 +38,9 @@ export default class Registration extends React.Component {
         console.log("this.state.error: ", this.state.error);
         return (
             <div>
-                <h2>I am the Registration component</h2>
-                <h3>
-                    <Link to="/login">Click here to Log in!</Link>
-                </h3>
+                <h2>I am the Login component</h2>
                 {this.state.error && <div>Oops, something went wrong!</div>}
-                <input
-                    name="first"
-                    placeholder="first name..."
-                    onChange={(e) => this.handleChange(e)}
-                    // onChange={this.handleChange}
-                ></input>
-                <input
-                    name="last"
-                    placeholder="last name..."
-                    onChange={(e) => this.handleChange(e)}
-                ></input>
+
                 <input
                     name="email"
                     placeholder="email..."
@@ -67,7 +52,7 @@ export default class Registration extends React.Component {
                     type="password"
                     onChange={(e) => this.handleChange(e)}
                 ></input>
-                <button onClick={() => this.submit()}>Register</button>
+                <button onClick={() => this.submit()}>Login</button>
             </div>
         );
     }

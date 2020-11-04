@@ -4,6 +4,7 @@ const compression = require("compression");
 const cookieSession = require("cookie-session");
 const db = require("./db");
 const bcrypt = require("./bc");
+const csurf = require("csurf");
 
 app.use(
     cookieSession({
@@ -11,6 +12,13 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 14,
     })
 );
+
+app.use(csurf());
+
+app.use(function (req, res, next) {
+    res.cookie("mytoken", req.csrfToken());
+    next();
+});
 
 app.use(compression());
 
@@ -57,7 +65,7 @@ app.post("/registration", (req, res) => {
                             });
                     })
                     .catch((err) => {
-                        console.log("err in userInfo:", err);
+                        console.log("err in userInfo: /registration", err);
                     });
             } else {
                 res.json({ success: false });
@@ -65,11 +73,44 @@ app.post("/registration", (req, res) => {
         });
     } else if (!first || !last || !email || !password) {
         res.redirect("/welcome");
+        res.json({ error: true });
     }
 
     // when everything works (i.e. hashing and inserting a row, and adding somethin to the session object)
     // req.session.userId = row[0].id;
     // res.json({ success: true });
+});
+
+app.post("/login", (req, res) => {
+    const { email, password } = req.body;
+
+    if (email && password) {
+        db.userInfo(email)
+            .then(({ rows }) => {
+                if (rows.length !== 0) {
+                    const hash = rows[0].password;
+                    bcrypt.compare(password, hash).then((auth) => {
+                        if (auth) {
+                            req.session.userId = {
+                                id: rows[0].id,
+                                first: rows[0].first,
+                                last: rows[0].last,
+                                email: rows[0].email,
+                            };
+
+                            res.json({ success: true });
+                        }
+                    });
+                } else {
+                    res.json({ success: false });
+                }
+            })
+            .catch((err) => {
+                console.log("err in getting users cookies at userInfo:", err);
+            });
+    } else if (!email || !password) {
+        res.json({ error: true });
+    }
 });
 
 app.get("/welcome", (req, res) => {
