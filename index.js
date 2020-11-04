@@ -5,6 +5,10 @@ const cookieSession = require("cookie-session");
 const db = require("./db");
 const bcrypt = require("./bc");
 const csurf = require("csurf");
+const cryptoRandomString = require("crypto-random-string");
+const secretCode = cryptoRandomString({
+    length: 6,
+});
 
 app.use(
     cookieSession({

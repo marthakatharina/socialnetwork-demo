@@ -1,12 +1,24 @@
 import React from "react";
 import axios from "./axios";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 export default class ResetPassword extends React.Component {
     constructor() {
         super();
         this.state = {};
     }
+
+    // getCurrentDisplay() {
+    //     const step = this.state.step;
+    //     if (step == 1) {
+    //         return( <div>show 1st display</div>)
+
+    //     } else if (step == 2) {
+    //         return( <div>show 2nd display</div>)
+
+    //     } else if (step == 3) {
+    //         return( <div>show 3rd display</div>)
+    // }
 
     handleChange(e) {
         console.log("e.target.value: ", e.target.value);

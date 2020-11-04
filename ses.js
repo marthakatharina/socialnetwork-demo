@@ -18,7 +18,7 @@ const ses = new aws.SES({
 exports.sendEmail = function (recipient, message, subject) {
     return ses
         .sendEmail({
-            Source: "Merle Fischer <merle@spiced-academy.com>", // you need to update this to the email address you verified OR recieved from spiced.space
+            Source: "Marta Wlusek <distinct.nest@spicedling.email>", // you need to update this to the email address you verified OR recieved from spiced.space
             Destination: {
                 ToAddresses: [recipient],
             },
