@@ -4,6 +4,7 @@ import Registration from "./registration";
 // import axios from "./axios";
 import Login from "./login";
 import { HashRouter, Route } from "react-router-dom";
+import ResetPasword from "./password-reset";
 
 export default function Welcome() {
     return (
@@ -14,8 +15,8 @@ export default function Welcome() {
             <HashRouter>
                 <div>
                     <Route exact path="/" component={Registration} />
-
                     <Route path="/login" component={Login} />
+                    <Route path="/reset" component={ResetPasword} />
                 </div>
             </HashRouter>
         </div>

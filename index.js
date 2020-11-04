@@ -42,8 +42,9 @@ app.post("/registration", (req, res) => {
 
     const { first, last, email, password } = req.body;
 
-    if (first && last && email && password) {
-        db.userInfo(email).then(({ rows }) => {
+    // if (first && last && email && password) {
+    db.userInfo(email)
+        .then(({ rows }) => {
             if (rows.length === 0) {
                 bcrypt
                     .hash(password)
@@ -53,9 +54,9 @@ app.post("/registration", (req, res) => {
                                 console.log("rows: ", rows);
                                 req.session.userId = {
                                     id: rows[0].id,
-                                    first: first,
-                                    last: last,
-                                    email: email,
+                                    // first: first,
+                                    // last: last,
+                                    // email: email,
                                 };
 
                                 res.json({ success: true });
@@ -65,16 +66,19 @@ app.post("/registration", (req, res) => {
                             });
                     })
                     .catch((err) => {
-                        console.log("err in userInfo: /registration", err);
+                        console.log("err in hash: /registration", err);
                     });
             } else {
                 res.json({ success: false });
             }
+        })
+        .catch((err) => {
+            console.log("err in userInfo: /registration", err);
         });
-    } else if (!first || !last || !email || !password) {
-        res.redirect("/welcome");
-        res.json({ error: true });
-    }
+    // } else if (!first || !last || !email || !password) {
+    //     res.redirect("/welcome");
+    //     res.json({ error: true });
+    // }
 
     // when everything works (i.e. hashing and inserting a row, and adding somethin to the session object)
     // req.session.userId = row[0].id;
@@ -84,33 +88,35 @@ app.post("/registration", (req, res) => {
 app.post("/login", (req, res) => {
     const { email, password } = req.body;
 
-    if (email && password) {
-        db.userInfo(email)
-            .then(({ rows }) => {
-                if (rows.length !== 0) {
-                    const hash = rows[0].password;
-                    bcrypt.compare(password, hash).then((auth) => {
-                        if (auth) {
-                            req.session.userId = {
-                                id: rows[0].id,
-                                first: rows[0].first,
-                                last: rows[0].last,
-                                email: rows[0].email,
-                            };
+    // if (email && password) {
+    db.userInfo(email)
+        .then(({ rows }) => {
+            if (rows.length !== 0) {
+                const hash = rows[0].password;
+                bcrypt.compare(password, hash).then((auth) => {
+                    if (auth) {
+                        req.session.userId = {
+                            id: rows[0].id,
+                            // first: rows[0].first,
+                            // last: rows[0].last,
+                            // email: rows[0].email,
+                        };
 
-                            res.json({ success: true });
-                        }
-                    });
-                } else {
-                    res.json({ success: false });
-                }
-            })
-            .catch((err) => {
-                console.log("err in getting users cookies at userInfo:", err);
-            });
-    } else if (!email || !password) {
-        res.json({ error: true });
-    }
+                        res.json({ success: true });
+                    } else {
+                        res.json({ success: false });
+                    }
+                });
+            } else {
+                res.json({ success: false });
+            }
+        })
+        .catch((err) => {
+            console.log("err in userInfo / login", err);
+        });
+    // } else if (!email || !password) {
+    //     res.json({ error: true });
+    // }
 });
 
 app.get("/welcome", (req, res) => {
