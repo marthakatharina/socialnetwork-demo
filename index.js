@@ -128,9 +128,9 @@ app.post("/reset/start", (req, res) => {
     db.userInfo(email)
         .then(({ rows }) => {
             if (rows.length !== 0) {
-                req.session.userId = {
-                    id: rows[0].id,
-                };
+                // req.session.userId = {
+                //     id: rows[0].id,
+                // };
                 const secretCode = cryptoRandomString({
                     length: 6,
                 });
@@ -163,6 +163,7 @@ app.post("/reset/verify", (req, res) => {
     db.getCode(email)
         .then(({ rows }) => {
             if (code == rows[0].code) {
+                console.log("rows[0].code: ", rows[0].code);
                 bcrypt
                     .hash(password)
                     .then((hash) => {
@@ -170,6 +171,12 @@ app.post("/reset/verify", (req, res) => {
                     })
                     .then(() => {
                         res.json({ success: true });
+                    })
+                    .catch((err) => {
+                        console.log(
+                            "err in updatePassword / reset/verify",
+                            err
+                        );
                     });
             } else {
                 res.json({ success: false });

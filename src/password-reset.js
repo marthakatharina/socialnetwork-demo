@@ -18,8 +18,7 @@ export default class ResetPassword extends React.Component {
                 <div>
                     <h2>I am the Reset Password component</h2>
                     <h3>
-                        Please enter the email address with which your
-                        registered
+                        Please enter the email address with which you registered
                     </h3>
                     {this.state.error && <div>Oops, something went wrong!</div>}
 
@@ -46,6 +45,7 @@ export default class ResetPassword extends React.Component {
                     <input
                         name="code"
                         placeholder="enter code"
+                        key={step}
                         onChange={(e) => this.handleChange(e)}
                     ></input>
                     <input
