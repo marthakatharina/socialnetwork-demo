@@ -33,10 +33,9 @@ module.exports.getCode = (email) => {
     );
 };
 
-module.exports.updatePassword = (password, email, hash) => {
+module.exports.updatePassword = (hash, email) => {
     return db.query(`UPDATE users SET password=$1 WHERE email=$2`, [
-        password,
-        email,
         hash,
+        email,
     ]);
 };

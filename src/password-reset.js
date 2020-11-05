@@ -39,7 +39,7 @@ export default class ResetPassword extends React.Component {
                     <h2>I am the Reset Password component</h2>
                     <h3>
                         Please enter the code sent to your email address and
-                        enter a new email
+                        enter your new password
                     </h3>
                     {this.state.error && <div>Oops, something went wrong!</div>}
 

@@ -166,7 +166,7 @@ app.post("/reset/verify", (req, res) => {
                 bcrypt
                     .hash(password)
                     .then((hash) => {
-                        return db.updatePassword(email, hash);
+                        return db.updatePassword(hash, email);
                     })
                     .then(() => {
                         res.json({ success: true });
