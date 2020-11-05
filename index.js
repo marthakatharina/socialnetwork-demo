@@ -6,9 +6,7 @@ const db = require("./db");
 const bcrypt = require("./bc");
 const csurf = require("csurf");
 const cryptoRandomString = require("crypto-random-string");
-const secretCode = cryptoRandomString({
-    length: 6,
-});
+const ses = require("./ses");
 
 app.use(
     cookieSession({
@@ -121,6 +119,65 @@ app.post("/login", (req, res) => {
     // } else if (!email || !password) {
     //     res.json({ error: true });
     // }
+});
+
+app.post("/reset/start", (req, res) => {
+    const { email } = req.body;
+    console.log("req.body in /start: ", req.body);
+
+    db.userInfo(email)
+        .then(({ rows }) => {
+            if (rows.length !== 0) {
+                req.session.userId = {
+                    id: rows[0].id,
+                };
+                const secretCode = cryptoRandomString({
+                    length: 6,
+                });
+                db.addCode(email, secretCode)
+                    .then(() => {
+                        const { first } = rows[0];
+                        const message = `Hi ${first}, here is your code to reset your password: ${secretCode} `;
+                        const subject = `Verification code`;
+                        return ses.sendEmail(email, message, subject);
+                    })
+                    .then(() => {
+                        res.json({ success: true });
+                    })
+                    .catch((err) => {
+                        console.log("err in addCode / reset/start", err);
+                    });
+            } else {
+                res.json({ success: false });
+            }
+        })
+        .catch((err) => {
+            console.log("err in userInfo / reset/start", err);
+        });
+});
+
+app.post("/reset/verify", (req, res) => {
+    console.log("req.body in /verify: ", req.body);
+    const { email, password, code } = req.body;
+
+    db.getCode(email)
+        .then(({ rows }) => {
+            if (code == rows[0].code) {
+                bcrypt
+                    .hash(password)
+                    .then((hash) => {
+                        return db.updatePassword(email, hash);
+                    })
+                    .then(() => {
+                        res.json({ success: true });
+                    });
+            } else {
+                res.json({ success: false });
+            }
+        })
+        .catch((err) => {
+            console.log("err in getCode / reset/verify", err);
+        });
 });
 
 app.get("/welcome", (req, res) => {
