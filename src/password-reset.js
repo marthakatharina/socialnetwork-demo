@@ -88,7 +88,7 @@ export default class ResetPassword extends React.Component {
                 console.log("response", response);
                 if (response.data.success) {
                     this.setState((state) => ({ step: state.step + 1 }));
-                    console.log(this.setState);
+                    console.log(this.state.step);
                 } else {
                     this.setState({
                         error: true,
@@ -107,10 +107,11 @@ export default class ResetPassword extends React.Component {
                 console.log("response", response);
                 if (response.data.success) {
                     this.setState((state) => ({ step: state.step + 1 }));
-                    console.log(this.setState);
+                    console.log(this.state.step);
                 } else {
                     this.setState({
                         error: true,
+                        message: response.data.message,
                     });
                 }
             })

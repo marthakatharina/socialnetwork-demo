@@ -7,10 +7,32 @@ const bcrypt = require("./bc");
 const csurf = require("csurf");
 const cryptoRandomString = require("crypto-random-string");
 const ses = require("./ses");
+const multer = require("multer"); // multer defines where to save files
+const uidSafe = require("uid-safe"); // encodes file name
+const path = require("path"); // grabs extention (jpg)
+const s3 = require("./s3");
+
+const diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function (uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    },
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
 
 app.use(
     cookieSession({
-        secret: "I'm depressed",
+        secret: "Secret is kept",
         maxAge: 1000 * 60 * 60 * 24 * 14,
     })
 );
@@ -179,12 +201,36 @@ app.post("/reset/verify", (req, res) => {
                         );
                     });
             } else {
-                res.json({ success: false });
+                res.json({
+                    success: false,
+                    message: "the code does not match or it has expired",
+                });
             }
         })
         .catch((err) => {
             console.log("err in getCode / reset/verify", err);
         });
+});
+
+app.post("/image", uploader.single("file"), s3.upload, function (req, res) {
+    const { filename } = req.file;
+    const imageUrl = `https://s3.amazonaws.com/spicedling/${filename}`;
+
+    if (req.file) {
+        db.addImage(imageUrl)
+            .then(({ rows }) => {
+                rows = rows[0];
+                console.log("rows: ", rows);
+                res.json({ success: true });
+            })
+            .catch((err) => {
+                console.log("error in addImage", err);
+            });
+    } else {
+        res.json({
+            success: false,
+        });
+    }
 });
 
 app.get("/welcome", (req, res) => {

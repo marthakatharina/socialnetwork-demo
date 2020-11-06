@@ -28,7 +28,7 @@ module.exports.addCode = (email, code) => {
 
 module.exports.getCode = (email) => {
     return db.query(
-        `SELECT * FROM reset_codes WHERE email = $1 AND CURRENT_TIMESTAMP - timestamp < INTERVAL '10 minutes'`,
+        `SELECT * FROM reset_codes WHERE email = $1 AND CURRENT_TIMESTAMP - timestamp < INTERVAL '10 minutes' ORDER BY timestamp DESC LIMIT 1`,
         [email]
     );
 };
@@ -38,4 +38,8 @@ module.exports.updatePassword = (hash, email) => {
         hash,
         email,
     ]);
+};
+
+module.exports.addImage = (imageUrl, id) => {
+    return db.query(`UPDATE users SET imageUrl=$1 WHERE id=$2`, [imageUrl, id]);
 };

@@ -20,10 +20,22 @@ export default class Uploader extends React.Component {
         return (
             <>
                 <h2>I am the uploader component</h2>
-                <h2 onClick={() => this.methodInUploader}>
-                    Click here o run the method in Uploader that triggers the
+                <div
+                    className="uploader-component"
+                    onClick={() => this.methodInUploader()}
+                >
+                    Click here to run the method in Uploader that triggers the
                     one in App
-                </h2>
+                    <input
+                        type="file"
+                        name="file"
+                        accept="image/*"
+                        onChange={(e) => this.handleChange(e)}
+                    ></input>
+                    <button onClick={() => this.submitImage()}>
+                        Upload image
+                    </button>
+                </div>
             </>
         );
     }
