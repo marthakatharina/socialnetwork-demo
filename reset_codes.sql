@@ -2,7 +2,7 @@
  
  CREATE TABLE reset_codes(
     id SERIAL PRIMARY KEY,
-    email VARCHAR NOT NULL,
+    email VARCHAR NOT NULL REFERENCES users(email) ON DELETE CASCADE,
     code VARCHAR NOT NULL,
     timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );

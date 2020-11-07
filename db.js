@@ -43,3 +43,7 @@ module.exports.updatePassword = (hash, email) => {
 module.exports.addImage = (imageUrl, id) => {
     return db.query(`UPDATE users SET imageUrl=$1 WHERE id=$2`, [imageUrl, id]);
 };
+
+module.exports.userInfoById = (id) => {
+    return db.query(`SELECT * FROM users WHERE id = $1`, [id]);
+};

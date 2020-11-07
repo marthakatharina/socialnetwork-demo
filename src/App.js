@@ -22,11 +22,20 @@ export default class App extends React.Component {
     componentDidMount() {
         console.log("App mounted");
         axios
-            .get("/user")
+            .get("/user", this.state)
             .then(({ data }) => {
-                this.setState({ ...data }, () =>
-                    console.log("this.state: ", this.state)
-                );
+                if (data.success) {
+                    this.setState((state) => ({
+                        id: state.id,
+                        first: state.first,
+                        last: state.last,
+                        imageUrl: state.imageUrl,
+                    }));
+                } else {
+                    this.setState({
+                        error: true,
+                    });
+                }
             })
             .catch((err) => console.log("err in axios get /user: ", err));
     }
@@ -36,36 +45,11 @@ export default class App extends React.Component {
         this.setState({ uploaderIsVisible: !this.state.uploaderIsVisible });
     }
 
-    sendPic(file) {
+    sendPic(url) {
         console.log("running in App component");
-        console.log("the arg i got passed was: ", file);
-        console.log("this.state: ", this.state); // this here must be bind above
-
-        var formData = new FormData(); // formData sends stuff to the server axios
-
-        formData.append("file", this.file);
-        formData.append("first", this.first);
-        formData.append("last", this.last);
-
-        axios
-            .post("/image", FormData)
-            .then((response) => {
-                console.log("response", response);
-                if (response.data.success) {
-                    this.setState((state) => ({
-                        uploaderIsVisible: state.uploaderIsVisible,
-                    }));
-                    // this.setState({
-                    //     uploaderIsVisible: !this.state.uploaderIsVisible,
-                    // });
-                    console.log(this.state.uploaderIsVisible);
-                } else {
-                    this.setState({
-                        error: true,
-                    });
-                }
-            })
-            .catch((err) => console.log("err in axios post: ", err));
+        console.log("the arg i got passed was: ", url);
+        console.log("this.state: ", this.state);
+        this.setState({ imageUrl: url }); // this here must be bind above
     }
 
     render() {
@@ -75,23 +59,28 @@ export default class App extends React.Component {
                 <header>
                     <Logo />
                     <h2>Hey I am App component</h2>
-                </header>
-                <div>
                     <ProfilePic
                         first={this.state.first}
                         last={this.state.last}
                         imageUrl={this.state.imageUrl}
+                        toggleUploader={() => this.toggleUploader()}
                     />
-                    <h2 onClick={() => this.toggleUploader()}>
-                        Changing state with a method: toggleUploader
-                        {this.state.uploaderIsVisible && " 🐵"}
-                        {!this.state.uploaderIsVisible && " 🙈"}
-                    </h2>
-                    {this.state.uploaderIsVisible && (
-                        <Uploader sendPic={this.sendPic} />
-                        // {this.sendPic} this refers to the bind above
-                    )}
-                </div>
+                </header>
+                {/* <div> */}
+                {/* <h2 onClick={() => this.toggleUploader()}> */}
+                {/* {this.state.uploaderIsVisible && <ProfilePic />}
+                        {!this.state.uploaderIsVisible && <ProfilePic />} */}
+                {/* </h2> */}
+
+                {this.state.uploaderIsVisible && (
+                    <Uploader
+                        sendPic={this.sendPic}
+                        toggleUploader={() => this.toggleUploader()}
+                        imageUrl={this.state.imageUrl}
+                    />
+                    // {this.sendPic} this refers to the bind above
+                )}
+                {/* </div> */}
             </React.Fragment>
         );
     }
