@@ -215,14 +215,18 @@ app.post("/reset/verify", (req, res) => {
 app.post("/image", uploader.single("file"), s3.upload, function (req, res) {
     const { filename } = req.file;
     const url = `https://s3.amazonaws.com/spicedling/${filename}`;
-    const { id } = req.body;
+    const { id } = req.session.userId;
+    console.log("id: ", id);
 
     if (req.file) {
         db.addImage(url, id)
             .then(({ rows }) => {
-                rows = rows[0];
+                // rows = rows[0];
                 console.log("rows: ", rows);
-                res.json(rows);
+                res.json({
+                    rows: rows[0],
+                    success: true,
+                });
             })
             .catch((err) => {
                 console.log("error in addImage", err);
@@ -236,10 +240,14 @@ app.post("/image", uploader.single("file"), s3.upload, function (req, res) {
 
 app.get("/user", (req, res) => {
     const { id } = req.session.userId;
+    console.log("id: ", id);
     // if (req.session.userId) {
     db.userInfoById(id)
         .then(({ rows }) => {
-            res.json({ success: true });
+            res.json({
+                rows: rows[0],
+                success: true,
+            });
             console.log("rows: ", rows);
         })
         .catch((err) => {

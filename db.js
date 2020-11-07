@@ -40,8 +40,11 @@ module.exports.updatePassword = (hash, email) => {
     ]);
 };
 
-module.exports.addImage = (imageUrl, id) => {
-    return db.query(`UPDATE users SET imageUrl=$1 WHERE id=$2`, [imageUrl, id]);
+module.exports.addImage = (url, id) => {
+    return db.query(`UPDATE users SET url=$1 WHERE id=$2 RETURNING url`, [
+        url,
+        id,
+    ]);
 };
 
 module.exports.userInfoById = (id) => {

@@ -1,7 +1,7 @@
 import React from "react";
 
-export default function ProfilePic({ first, last, imageUrl, toggleUploader }) {
-    console.log("props form App: ", first, last, imageUrl);
+export default function ProfilePic({ first, last, url, toggleUploader }) {
+    console.log("props form App: ", first, last, url);
     return (
         <>
             <h2>
@@ -9,8 +9,8 @@ export default function ProfilePic({ first, last, imageUrl, toggleUploader }) {
             </h2>
             <img
                 className="user-image-small"
-                src={imageUrl || "/no-user-image.jpg"}
-                alt={first + "" + last}
+                src={url || "/no-user-image.jpg"}
+                alt={first + " " + last}
                 onClick={toggleUploader}
             />
         </>

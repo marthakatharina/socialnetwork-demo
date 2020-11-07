@@ -8,12 +8,12 @@ export default class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            id: "",
-            first: "",
-            last: "",
-            imageUrl: "",
+            // id: "",
+            // first: "",
+            // last: "",
+            // url: "",
             // bio: "",
-            // file: null,
+
             uploaderIsVisible: false,
         };
 
@@ -22,15 +22,22 @@ export default class App extends React.Component {
     componentDidMount() {
         console.log("App mounted");
         axios
-            .get("/user", this.state)
+            .get("/user")
             .then(({ data }) => {
                 if (data.success) {
-                    this.setState((state) => ({
-                        id: state.id,
-                        first: state.first,
-                        last: state.last,
-                        imageUrl: state.imageUrl,
-                    }));
+                    // this.setState((state) => ({
+                    //     id: state.id,
+                    //     first: state.first,
+                    //     last: state.last,
+                    //     url: state.url,
+                    // }));
+                    this.setState({
+                        id: data.rows.id,
+                        first: data.rows.first,
+                        last: data.rows.last,
+                        email: data.rows.email,
+                        url: data.rows.url,
+                    });
                 } else {
                     this.setState({
                         error: true,
@@ -49,7 +56,7 @@ export default class App extends React.Component {
         console.log("running in App component");
         console.log("the arg i got passed was: ", url);
         console.log("this.state: ", this.state);
-        this.setState({ imageUrl: url }); // this here must be bind above
+        this.setState({ url: url }); // this here must be bind above
     }
 
     render() {
@@ -62,7 +69,7 @@ export default class App extends React.Component {
                     <ProfilePic
                         first={this.state.first}
                         last={this.state.last}
-                        imageUrl={this.state.imageUrl}
+                        url={this.state.url}
                         toggleUploader={() => this.toggleUploader()}
                     />
                 </header>
@@ -76,7 +83,6 @@ export default class App extends React.Component {
                     <Uploader
                         sendPic={this.sendPic}
                         toggleUploader={() => this.toggleUploader()}
-                        imageUrl={this.state.imageUrl}
                     />
                     // {this.sendPic} this refers to the bind above
                 )}

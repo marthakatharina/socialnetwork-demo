@@ -5,7 +5,8 @@ export default class Uploader extends React.Component {
     constructor(props) {
         super();
         this.state = {
-            url: props.imageUrl,
+            url: props.url,
+            uploaderIsVisible: false,
         };
     }
 
@@ -39,30 +40,28 @@ export default class Uploader extends React.Component {
         var formData = new FormData(); // formData sends stuff to the server axios
 
         formData.append("file", this.state.file);
-        formData.append("id", this.state.id);
+        // formData.append("id", this.state.id);
+        // formData.append("imageUrl", this.state.imageUrl);
         // formData.append("first", this.props.first);
         // formData.append("last", this.props.last);
 
         axios
             .post("/image", FormData)
-            .then((response) => {
+            .then(({ data }) => {
                 console.log("response", response);
-                if (response.data.success) {
-                    // this.setState((state) => ({
-                    //     uploaderIsVisible: state.uploaderIsVisible,
-                    // }));
-                    console.log("response.data.imageurl: ", response.data.rows);
+                if (data.success) {
                     this.setState({
-                        url: response.data.rows[0].imageUrl,
+                        url: data.rows.url,
                     });
-                    this.methodInUploader();
+
+                    this.methodInUploader("imageUrl");
                 } else {
                     this.setState({
                         error: true,
                     });
                 }
             })
-            .catch((err) => console.log("err in axios post: ", err));
+            .catch((err) => console.log("err in axios post /image: ", err));
     }
 
     render() {
