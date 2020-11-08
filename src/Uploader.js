@@ -40,10 +40,9 @@ export default class Uploader extends React.Component {
 
         axios
             .post("/image", formData)
-            .then((response) => {
-                console.log("response: ", response);
+            .then(({ data }) => {
                 this.setState({
-                    url: response.data,
+                    url: data,
                 });
                 this.methodInUploader();
             })
