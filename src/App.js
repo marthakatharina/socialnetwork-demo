@@ -3,6 +3,8 @@ import Logo from "./logo";
 import ProfilePic from "./ProfilePic";
 import Uploader from "./Uploader";
 import axios from "./axios";
+import Profile from "./Profile";
+import BioEditor from "./BioEditor";
 
 export default class App extends React.Component {
     constructor() {
@@ -11,7 +13,7 @@ export default class App extends React.Component {
             // id: "",
             // first: "",
             // last: "",
-            url: null,
+            // url: null,
             // bio: "",
 
             uploaderIsVisible: false,
@@ -37,6 +39,7 @@ export default class App extends React.Component {
                         last: data.rows.last,
                         email: data.rows.email,
                         url: data.rows.url,
+                        bio: data.rows.bio,
                     });
                 } else {
                     this.setState({
@@ -59,6 +62,8 @@ export default class App extends React.Component {
 
         this.setState({ url: arg }); // this here must be bind above
     }
+
+    setBio() {}
 
     render() {
         // return <h2>Hey I am App component</h2>;
@@ -85,9 +90,24 @@ export default class App extends React.Component {
                         sendPic={this.sendPic}
                         toggleUploader={() => this.toggleUploader()}
                     />
-                    // {this.sendPic} this refers to the bind above
+                    // {this.sendPic} this refers to the bind above, this is how it looks like in conjunction with bind(this)
                 )}
                 {/* </div> */}
+                <div>
+                    <Profile
+                        first={this.state.first}
+                        last={this.state.last}
+                        url={this.state.url}
+                        bio={this.state.bio}
+                        toggleUploader={() => this.toggleUploader()}
+                        BioEditor={
+                            <BioEditor
+                                bio={this.state.bio}
+                                setBio={() => this.setBio()}
+                            />
+                        }
+                    />
+                </div>
             </React.Fragment>
         );
     }
