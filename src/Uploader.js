@@ -6,7 +6,7 @@ export default class Uploader extends React.Component {
         super();
         this.state = {
             url: props.url,
-            uploaderIsVisible: false,
+            closeUploader: props.toggleUploader,
         };
     }
 
@@ -35,33 +35,21 @@ export default class Uploader extends React.Component {
     }
 
     submitImage() {
-        console.log("about to submit Image!!!", this.state);
-
-        var formData = new FormData(); // formData sends stuff to the server axios
-
+        var formData = new FormData();
         formData.append("file", this.state.file);
-        // formData.append("id", this.state.id);
-        // formData.append("imageUrl", this.state.imageUrl);
-        // formData.append("first", this.props.first);
-        // formData.append("last", this.props.last);
 
         axios
-            .post("/image", FormData)
-            .then(({ data }) => {
-                console.log("response", response);
-                if (data.success) {
-                    this.setState({
-                        url: data.rows.url,
-                    });
-
-                    this.methodInUploader("imageUrl");
-                } else {
-                    this.setState({
-                        error: true,
-                    });
-                }
+            .post("/image", formData)
+            .then((response) => {
+                console.log("response: ", response);
+                this.setState({
+                    url: response.data,
+                });
+                this.methodInUploader();
             })
-            .catch((err) => console.log("err in axios post /image: ", err));
+            .catch(function (err) {
+                console.log("error in axios post /image", err);
+            });
     }
 
     render() {
@@ -72,6 +60,7 @@ export default class Uploader extends React.Component {
                     className="uploader-component"
                     onClick={() => this.methodInUploader()}
                 >
+                    <div onClick={this.state.closeUploader}>x</div>
                     Click here to run the method in Uploader that triggers the
                     one in App
                     <input

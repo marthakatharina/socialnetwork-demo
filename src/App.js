@@ -11,7 +11,7 @@ export default class App extends React.Component {
             // id: "",
             // first: "",
             // last: "",
-            // url: "",
+            url: null,
             // bio: "",
 
             uploaderIsVisible: false,
@@ -52,11 +52,12 @@ export default class App extends React.Component {
         this.setState({ uploaderIsVisible: !this.state.uploaderIsVisible });
     }
 
-    sendPic(url) {
+    sendPic(arg) {
         console.log("running in App component");
-        console.log("the arg i got passed was: ", url);
+        console.log("the arg i got passed was: ", arg);
         console.log("this.state: ", this.state);
-        this.setState({ url: url }); // this here must be bind above
+
+        this.setState({ url: arg }); // this here must be bind above
     }
 
     render() {

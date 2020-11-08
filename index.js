@@ -12,24 +12,6 @@ const uidSafe = require("uid-safe"); // encodes file name
 const path = require("path"); // grabs extention (jpg)
 const s3 = require("./s3");
 
-const diskStorage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, __dirname + "/uploads");
-    },
-    filename: function (req, file, callback) {
-        uidSafe(24).then(function (uid) {
-            callback(null, uid + path.extname(file.originalname));
-        });
-    },
-});
-
-const uploader = multer({
-    storage: diskStorage,
-    limits: {
-        fileSize: 2097152,
-    },
-});
-
 app.use(
     cookieSession({
         secret: "Secret is kept",
@@ -59,6 +41,24 @@ if (process.env.NODE_ENV != "production") {
 
 app.use(express.static("public"));
 app.use(express.json());
+
+const diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function (uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    },
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
 
 app.post("/registration", (req, res) => {
     console.log("Hit the post register route!!!");
@@ -216,17 +216,14 @@ app.post("/image", uploader.single("file"), s3.upload, function (req, res) {
     const { filename } = req.file;
     const url = `https://s3.amazonaws.com/spicedling/${filename}`;
     const { id } = req.session.userId;
-    console.log("id: ", id);
+    console.log("req.file: ", req.file);
 
     if (req.file) {
         db.addImage(url, id)
             .then(({ rows }) => {
                 // rows = rows[0];
-                console.log("rows: ", rows);
-                res.json({
-                    rows: rows[0],
-                    success: true,
-                });
+                console.log("rows: ", rows[0].url);
+                res.json(rows[0].url);
             })
             .catch((err) => {
                 console.log("error in addImage", err);

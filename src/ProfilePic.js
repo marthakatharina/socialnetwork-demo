@@ -7,6 +7,7 @@ export default function ProfilePic({ first, last, url, toggleUploader }) {
             <h2>
                 I am the ProfilePic component. My name is {first} {last}
             </h2>
+
             <img
                 className="user-image-small"
                 src={url || "/no-user-image.jpg"}
