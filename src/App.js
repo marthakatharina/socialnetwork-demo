@@ -56,14 +56,17 @@ export default class App extends React.Component {
     }
 
     sendPic(arg) {
-        console.log("running in App component");
-        console.log("the arg i got passed was: ", arg);
+        // console.log("running in App component");
+        console.log("the arg i got passed in sendPic was: ", arg);
         console.log("this.state: ", this.state);
 
         this.setState({ url: arg }); // this here must be bind above
     }
 
-    setBio() {}
+    setBio(arg) {
+        console.log("the arg i got passed in setBio was: ", arg);
+        this.setState({ bio: arg });
+    }
 
     render() {
         // return <h2>Hey I am App component</h2>;

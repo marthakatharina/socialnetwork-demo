@@ -8,6 +8,10 @@ module.exports.userInfo = (email) => {
     return db.query(`SELECT * FROM users WHERE email = $1`, [email]);
 };
 
+module.exports.userInfoById = (id) => {
+    return db.query(`SELECT * FROM users WHERE id = $1`, [id]);
+};
+
 module.exports.addUser = (first, last, email, password) => {
     return db.query(
         `
@@ -47,6 +51,9 @@ module.exports.addImage = (url, id) => {
     ]);
 };
 
-module.exports.userInfoById = (id) => {
-    return db.query(`SELECT * FROM users WHERE id = $1`, [id]);
+module.exports.addBio = (bio, id) => {
+    return db.query(`UPDATE users SET bio=$1 WHERE id=$2 RETURNING bio`, [
+        bio,
+        id,
+    ]);
 };

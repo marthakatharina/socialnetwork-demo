@@ -235,6 +235,21 @@ app.post("/image", uploader.single("file"), s3.upload, function (req, res) {
     }
 });
 
+app.post("/bio", (req, res) => {
+    const { bio } = req.body;
+    const { id } = req.session.userId;
+
+    db.addBio(bio, id)
+        .then(({ rows }) => {
+            // rows = rows[0];
+            console.log("rows: ", rows[0].bio);
+            res.json(rows[0].bio);
+        })
+        .catch((err) => {
+            console.log("error in addImage", err);
+        });
+});
+
 app.get("/user", (req, res) => {
     const { id } = req.session.userId;
     console.log("id: ", id);
