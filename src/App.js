@@ -24,28 +24,28 @@ export default class App extends React.Component {
     componentDidMount() {
         console.log("App mounted");
         axios
-            .get("/user")
+            .get("/api/user")
             .then(({ data }) => {
-                if (data.success) {
-                    // this.setState((state) => ({
-                    //     id: state.id,
-                    //     first: state.first,
-                    //     last: state.last,
-                    //     url: state.url,
-                    // }));
-                    this.setState({
-                        id: data.rows.id,
-                        first: data.rows.first,
-                        last: data.rows.last,
-                        email: data.rows.email,
-                        url: data.rows.url,
-                        bio: data.rows.bio,
-                    });
-                } else {
-                    this.setState({
-                        error: true,
-                    });
-                }
+                // if (data) {
+                // this.setState((state) => ({
+                //     id: state.id,
+                //     first: state.first,
+                //     last: state.last,
+                //     url: state.url,
+                // }));
+                this.setState({
+                    id: data.id,
+                    first: data.first,
+                    last: data.last,
+                    email: data.email,
+                    url: data.url,
+                    bio: data.bio,
+                });
+                // } else {
+                //     this.setState({
+                //         error: true,
+                //     });
+                // }
             })
             .catch((err) => console.log("err in axios get /user: ", err));
     }
@@ -63,9 +63,9 @@ export default class App extends React.Component {
         this.setState({ url: arg }); // this here must be bind above
     }
 
-    setBio(arg) {
-        console.log("the arg i got passed in setBio was: ", arg);
-        this.setState({ bio: arg });
+    setBio(bio) {
+        console.log("the arg i got passed in setBio was: ", bio);
+        this.setState({ bio: bio });
     }
 
     render() {

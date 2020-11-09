@@ -10,8 +10,9 @@ export default function Profile(props) {
         <>
             <h1>PROFILE COMPONENT</h1>
             <span>
-                Hello there {props.first} {props.last}
+                Name: {props.first} {props.last}
             </span>
+            <div>Bio: {props.bio}</div>
             <ProfilePic
                 id={props.id}
                 first={props.first}
@@ -21,7 +22,7 @@ export default function Profile(props) {
                 toggleUploader={props.toggleUploader}
             />
 
-            <BioEditor />
+            <BioEditor bio={props.bio} setBio={props.setBio} />
         </>
     );
 }

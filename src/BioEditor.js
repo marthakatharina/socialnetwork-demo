@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import axios from "./axios";
 
 export default class BioEditor extends Component {
     constructor(props) {
         super(props);
         this.state = {
             editorIsVisible: false,
+
             bio: props.bio,
         };
         this.textareaToggle = this.textareaToggle.bind(this);
@@ -12,6 +14,7 @@ export default class BioEditor extends Component {
     textareaToggle() {
         this.setState({
             editorIsVisible: !this.state.editorIsVisible,
+            bio: this.props.bio,
         });
     }
 
@@ -23,7 +26,7 @@ export default class BioEditor extends Component {
         console.log("e.target.value: ", e.target.value);
         this.setState(
             {
-                [e.target.name]: e.target.value,
+                bio: e.target.value,
             },
             () => console.log("this.state in the callback: ")
         );
@@ -34,15 +37,15 @@ export default class BioEditor extends Component {
         axios
             .post("/bio", this.state)
             .then(({ data }) => {
-                console.log("response", response);
-                if (data.success) {
-                    this.setState((state) => ({
-                        bio: state.bio,
-                    }));
-                    // this.setState({
-                    //     bio: data,
-                    // });
-                    this.methodInBioEditor();
+                console.log("data", data);
+                if (data) {
+                    this.setState({
+                        bio: data,
+                        // bio: this.state.bio,
+                    });
+
+                    this.methodInBioEditor(data);
+                    this.textareaToggle();
                 } else {
                     this.setState({
                         error: true,
@@ -63,9 +66,12 @@ export default class BioEditor extends Component {
                         placeholder="type bio..."
                         type="text"
                         onChange={(e) => this.handleChange(e)}
+                        value={this.state.bio}
                     />
                 )}
+
                 <button onClick={this.textareaToggle}>Edit</button>
+                {/* bind */}
 
                 <button onClick={() => this.submitBio()}>Save</button>
             </>

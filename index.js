@@ -250,16 +250,13 @@ app.post("/bio", (req, res) => {
         });
 });
 
-app.get("/user", (req, res) => {
+app.get("/api/user", (req, res) => {
     const { id } = req.session.userId;
     console.log("id: ", id);
     // if (req.session.userId) {
     db.userInfoById(id)
         .then(({ rows }) => {
-            res.json({
-                rows: rows[0],
-                success: true,
-            });
+            res.json(rows[0]);
             console.log("rows: ", rows);
         })
         .catch((err) => {
