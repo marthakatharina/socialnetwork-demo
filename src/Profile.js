@@ -13,6 +13,9 @@ export default function Profile(props) {
                 Name: {props.first} {props.last}
             </span>
             <div>Bio: {props.bio}</div>
+
+            <BioEditor bio={props.bio} setBio={props.setBio} />
+
             <ProfilePic
                 id={props.id}
                 first={props.first}
@@ -21,8 +24,6 @@ export default function Profile(props) {
                 bio={props.bio}
                 toggleUploader={props.toggleUploader}
             />
-
-            <BioEditor bio={props.bio} setBio={props.setBio} />
         </>
     );
 }

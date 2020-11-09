@@ -4,7 +4,6 @@ import ProfilePic from "./ProfilePic";
 import Uploader from "./Uploader";
 import axios from "./axios";
 import Profile from "./Profile";
-import BioEditor from "./BioEditor";
 
 export default class App extends React.Component {
     constructor() {
@@ -56,20 +55,18 @@ export default class App extends React.Component {
     }
 
     sendPic(arg) {
-        // console.log("running in App component");
         console.log("the arg i got passed in sendPic was: ", arg);
         console.log("this.state: ", this.state);
 
         this.setState({ url: arg }); // this here must be bind above
     }
 
-    setBio(bio) {
-        console.log("the arg i got passed in setBio was: ", bio);
-        this.setState({ bio: bio });
+    setBio(arg) {
+        console.log("the arg i got passed in setBio was: ", arg);
+        this.setState({ bio: arg });
     }
 
     render() {
-        // return <h2>Hey I am App component</h2>;
         return (
             <React.Fragment>
                 <header>
@@ -103,12 +100,7 @@ export default class App extends React.Component {
                         url={this.state.url}
                         bio={this.state.bio}
                         toggleUploader={() => this.toggleUploader()}
-                        BioEditor={
-                            <BioEditor
-                                bio={this.state.bio}
-                                setBio={() => this.setBio()}
-                            />
-                        }
+                        setBio={(arg) => this.setBio(arg)}
                     />
                 </div>
             </React.Fragment>

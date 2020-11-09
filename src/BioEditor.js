@@ -6,7 +6,6 @@ export default class BioEditor extends Component {
         super(props);
         this.state = {
             editorIsVisible: false,
-
             bio: props.bio,
         };
         this.textareaToggle = this.textareaToggle.bind(this);
@@ -18,8 +17,8 @@ export default class BioEditor extends Component {
         });
     }
 
-    methodInBioEditor() {
-        this.props.setBio(this.state.bio);
+    methodInBioEditor(arg) {
+        this.props.setBio(arg);
     }
 
     handleChange(e) {
@@ -58,8 +57,8 @@ export default class BioEditor extends Component {
     render() {
         return (
             <>
-                <h1>Bio Editor</h1>
-                {/* <p>bio={props.bio}</p> */}
+                <h1> Bio Editor component</h1>
+                <h2>Edit Bio</h2>
                 {this.state.editorIsVisible && (
                     <textarea
                         name="bio"
@@ -69,10 +68,8 @@ export default class BioEditor extends Component {
                         value={this.state.bio}
                     />
                 )}
-
                 <button onClick={this.textareaToggle}>Edit</button>
                 {/* bind */}
-
                 <button onClick={() => this.submitBio()}>Save</button>
             </>
         );

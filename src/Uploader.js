@@ -55,10 +55,7 @@ export default class Uploader extends React.Component {
         return (
             <>
                 <h2>I am the uploader component</h2>
-                <div
-                    className="uploader-component"
-                    onClick={() => this.methodInUploader()}
-                >
+                <div className="uploader-component">
                     <div onClick={this.state.closeUploader}>x</div>
                     Click here to run the method in Uploader that triggers the
                     one in App
