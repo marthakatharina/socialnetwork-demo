@@ -13,23 +13,23 @@ export default class OtherProfile extends Component {
             .get(`/api/user/${this.props.match.params.id}`)
             .then(({ data }) => {
                 console.log("data: ", data);
-                if (data) {
-                    if (this.props.match.params.id == this.props.id) {
-                        this.props.history.push("/");
-                    } else {
-                        this.setState({
-                            id: data.id,
-                            first: data.first,
-                            last: data.last,
-                            url: data.url,
-                            bio: data.bio,
-                        });
-                    }
+                if (data.error) {
+                    // if (this.props.match.params.id == this.props.id) {
+                    this.props.history.push("/");
                 } else {
                     this.setState({
-                        error: true,
+                        id: data.id,
+                        first: data.first,
+                        last: data.last,
+                        url: data.url,
+                        bio: data.bio,
                     });
                 }
+                // } else {
+                //     this.setState({
+                //         error: true,
+                //     });
+                // }
             })
             .catch((err) =>
                 console.log("err in axios get /user in OtherProfile: ", err)

@@ -271,21 +271,25 @@ app.get("/api/user", (req, res) => {
 app.get("/api/user/:id", (req, res) => {
     const { id } = req.params;
     console.log("req.params.id: ", req.params.id);
-
-    db.userInfoById(id)
-        .then(({ rows }) => {
-            if (rows[0]) {
-                res.json(rows[0]);
-                console.log("rows: ", rows);
-            } else {
-                res.json({
-                    success: false,
-                });
-            }
-        })
-        .catch((err) => {
-            console.log("error in /user/:id server", err);
-        });
+    if (id != req.session.userId.id) {
+        db.userInfoById(id)
+            .then(({ rows }) => {
+                if (rows[0] || rows.length !== 0) {
+                    res.json(rows[0]);
+                    console.log("rows: ", rows);
+                } else {
+                    res.json({
+                        success: false,
+                        error: true,
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log("error in /user/:id server", err);
+            });
+    } else {
+        res.json({ error: true });
+    }
 });
 
 app.get("/welcome", (req, res) => {
