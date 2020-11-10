@@ -13,7 +13,7 @@ export default class OtherProfile extends Component {
             .get(`/api/user/${this.props.match.params.id}`)
             .then(({ data }) => {
                 console.log("data: ", data);
-                if (!data.success) {
+                if (data) {
                     if (this.props.match.params.id == this.props.id) {
                         this.props.history.push("/");
                     } else {
@@ -50,27 +50,6 @@ export default class OtherProfile extends Component {
 
                     <h3>Bio: {this.state.bio}</h3>
                 </div>
-                {/* {this.state.editorIsVisible && (
-                    <textarea
-                        name="bio"
-                        placeholder="type bio..."
-                        type="text"
-                        onChange={(e) => this.handleChange(e)}
-                        value={this.state.bio}
-                    />
-                )}
-                {!this.props.bio && !this.state.editorIsVisible && (
-                    <button onClick={this.textareaToggle}>Add your bio</button>
-                )}
-                {this.props.bio && !this.state.editorIsVisible && (
-                    <button onClick={this.textareaToggle}>Edit your bio</button>
-                )}
-                {this.state.editorIsVisible && (
-                    <button onClick={() => this.submitBio()}>Save</button>
-                )} */}
-                {/* <button onClick={this.textareaToggle}>Edit</button>
-                {/* bind */}
-                {/* <button onClick={() => this.submitBio()}>Save</button> */}{" "}
             </>
         );
     }
