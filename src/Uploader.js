@@ -54,11 +54,11 @@ export default class Uploader extends React.Component {
     render() {
         return (
             <>
-                <h2>I am the uploader component</h2>
                 <div className="uploader-component">
-                    <div onClick={this.state.closeUploader}>x</div>
-                    Click here to run the method in Uploader that triggers the
-                    one in App
+                    <div className="close-x" onClick={this.state.closeUploader}>
+                        x
+                    </div>
+
                     <input
                         type="file"
                         name="file"

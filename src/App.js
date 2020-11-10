@@ -4,6 +4,8 @@ import ProfilePic from "./ProfilePic";
 import Uploader from "./Uploader";
 import axios from "./axios";
 import Profile from "./Profile";
+import { BrowserRouter, Route } from "react-router-dom";
+import OtherProfile from "./OtherProfile";
 
 export default class App extends React.Component {
     constructor() {
@@ -68,14 +70,15 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <React.Fragment>
+            <BrowserRouter>
                 <header>
                     <Logo />
-                    <h2>Hey I am App component</h2>
+
                     <ProfilePic
                         first={this.state.first}
                         last={this.state.last}
                         url={this.state.url}
+                        id={this.state.id}
                         toggleUploader={() => this.toggleUploader()}
                     />
                 </header>
@@ -84,7 +87,6 @@ export default class App extends React.Component {
                 {/* {this.state.uploaderIsVisible && <ProfilePic />}
                         {!this.state.uploaderIsVisible && <ProfilePic />} */}
                 {/* </h2> */}
-
                 {this.state.uploaderIsVisible && (
                     <Uploader
                         sendPic={this.sendPic}
@@ -93,17 +95,34 @@ export default class App extends React.Component {
                     // {this.sendPic} this refers to the bind above, this is how it looks like in conjunction with bind(this)
                 )}
                 {/* </div> */}
-                <div>
-                    <Profile
-                        first={this.state.first}
-                        last={this.state.last}
-                        url={this.state.url}
-                        bio={this.state.bio}
-                        toggleUploader={() => this.toggleUploader()}
-                        setBio={(arg) => this.setBio(arg)}
+                <div className="profile-container">
+                    <Route
+                        exact
+                        path="/"
+                        render={() => (
+                            <Profile
+                                id={this.state.id}
+                                first={this.state.first}
+                                last={this.state.last}
+                                url={this.state.url}
+                                bio={this.state.bio}
+                                toggleUploader={() => this.toggleUploader()}
+                                setBio={(arg) => this.setBio(arg)}
+                            />
+                        )}
+                    />
+                    <Route
+                        path="/api/user/:id"
+                        render={(props) => (
+                            <OtherProfile
+                                key={props.match.url}
+                                match={props.match}
+                                history={props.history}
+                            />
+                        )}
                     />
                 </div>
-            </React.Fragment>
+            </BrowserRouter>
         );
     }
 }

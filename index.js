@@ -252,6 +252,7 @@ app.post("/bio", (req, res) => {
 
 app.get("/api/user", (req, res) => {
     const { id } = req.session.userId;
+
     console.log("id: ", id);
     // if (req.session.userId) {
     db.userInfoById(id)
@@ -265,6 +266,30 @@ app.get("/api/user", (req, res) => {
     // } else {
     //     res.sendFile(__dirname + "/index.html");
     // }
+});
+
+app.get("/api/user/:id", (req, res) => {
+    const { id } = req.params;
+    console.log("req.params.id: ", req.params.id);
+    if (id == req.session.userId.id) {
+        // if (req.session.userId) {
+        db.userInfoById(id)
+            .then(({ rows }) => {
+                res.json(
+                    rows[0].id,
+                    rows[0].first,
+                    rows[0].last,
+                    rows[0].url,
+                    rows[0].bio
+                );
+                console.log("rows: ", rows);
+            })
+            .catch((err) => {
+                console.log("error in /user server", err);
+            });
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
 });
 
 app.get("/welcome", (req, res) => {
