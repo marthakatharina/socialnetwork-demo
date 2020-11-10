@@ -4,28 +4,30 @@ import axios from "./axios";
 export default class OtherProfile extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            // editorIsVisible: false,
-            // bio: props.bio,
-            // id: props.id,
-            // match: props.match,
-            // history: props.history,
-        };
+        this.state = {};
     }
 
     componentDidMount() {
+        console.log("this.props.match: ", this.props.match);
         axios
-            .get("/api/user/:id", this.state)
+            .get(`/api/user/${this.props.match.params.id}`)
             .then(({ data }) => {
-                if (this.props.match.params.id == this.state.id) {
-                    this.props.history.push("/");
+                console.log("data: ", data);
+                if (!data.success) {
+                    if (this.props.match.params.id == this.props.id) {
+                        this.props.history.push("/");
+                    } else {
+                        this.setState({
+                            id: data.id,
+                            first: data.first,
+                            last: data.last,
+                            url: data.url,
+                            bio: data.bio,
+                        });
+                    }
                 } else {
                     this.setState({
-                        id: data,
-                        first: data,
-                        last: data,
-                        url: data,
-                        bio: data,
+                        error: true,
                     });
                 }
             })
@@ -38,20 +40,16 @@ export default class OtherProfile extends Component {
         return (
             <>
                 <h1>Other Profile component</h1>
-                <h2>
-                    Name: {props.first} {props.last}
-                </h2>
-                <div className="user-image-large">
-                    <ProfilePic
-                        id={props.id}
-                        first={props.first}
-                        last={props.last}
-                        url={props.url}
-                        bio={props.bio}
-                        toggleUploader={props.toggleUploader}
-                    />
+                {this.state.error && <div>Oops, something went wrong!</div>}
+                <div key={this.state.id}>
+                    <h2>
+                        {this.state.first} {this.state.last}
+                    </h2>
+
+                    <img src={this.state.url || "/no-user-image.jpg"} />
+
+                    <h3>Bio: {this.state.bio}</h3>
                 </div>
-                <h3>Bio: {props.bio}</h3>
                 {/* {this.state.editorIsVisible && (
                     <textarea
                         name="bio"

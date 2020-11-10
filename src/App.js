@@ -11,12 +11,11 @@ export default class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            // id: "",
-            // first: "",
-            // last: "",
-            // url: null,
-            // bio: "",
-
+            id: "",
+            first: "",
+            last: "",
+            url: "",
+            bio: "",
             uploaderIsVisible: false,
         };
 
@@ -112,7 +111,7 @@ export default class App extends React.Component {
                         )}
                     />
                     <Route
-                        path="/api/user/:id"
+                        path="/user/:id"
                         render={(props) => (
                             <OtherProfile
                                 key={props.match.url}
