@@ -293,14 +293,25 @@ app.get("/api/user/:id", (req, res) => {
 });
 
 app.get("/api/users", (req, res) => {
-    const { id } = req.session.userId;
+    db.lastThreeUsers()
+        .then(({ rows }) => {
+            res.json(rows);
+            console.log("row in lastThreeUsers: ", rows);
+        })
+        .catch((err) => {
+            console.log("error in /user server", err);
+        });
+});
 
-    console.log("id: ", id);
+app.get("/api/users/:user", (req, res) => {
+    const { user } = req.params;
 
-    db.getMatchingUsers(id)
+    console.log("req.params: ", req.params);
+
+    db.getMatchingUsers(user)
         .then(({ rows }) => {
             res.json(rows[0]);
-            console.log("rows: ", rows);
+            console.log("rows in getMatchingUsers : ", rows);
         })
         .catch((err) => {
             console.log("error in /user server", err);

@@ -63,7 +63,8 @@ module.exports.lastThreeUsers = (id) => {
 };
 
 module.exports.getMatchingUsers = (val) => {
-    return db.query(`SELECT first FROM users WHERE first ILIKE $1;`, [
-        val + "%",
-    ]);
+    return db.query(
+        `SELECT first, last, url, id FROM users WHERE first ILIKE $1;`,
+        [val + "%"]
+    );
 };

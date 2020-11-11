@@ -3,15 +3,16 @@ import axios from "./axios";
 
 export default function FindPeople() {
     // const [first, setFirst] = useState("");
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState();
     const [users, setUsers] = useState([]);
+    const [recentUsers, setRecentUsers] = useState([]);
     const [error, setError] = useState(false);
 
     // useEffect(() => {
     //     axios
     //         .get("/api/users")
     //         .then(({ data }) => {
-    //             setUsers({
+    //             setRecentUsers({
     //                 id: data.id,
     //                 first: data.first,
     //                 last: data.last,
@@ -22,6 +23,18 @@ export default function FindPeople() {
     // }, []);
 
     useEffect(() => {
+        axios
+            .get("/api/users")
+            .then(({ data }) => {
+                setRecentUsers({
+                    id: data.id,
+                    first: data.first,
+                    last: data.last,
+                    url: data.url,
+                });
+            })
+            .catch((err) => setError(err));
+
         axios
             .get(`/api/users/${user}`)
             .then(({ data }) => {
@@ -44,6 +57,15 @@ export default function FindPeople() {
             <h2>Find People component</h2>
             {error && <div>Oops, something went wrong!</div>}
 
+            <h3>Recently joined:</h3>
+            <ul>
+                {Array.isArray(recentUsers) &&
+                    recentUsers.map((each, id) => {
+                        <li key={id}>{each}</li>;
+                    })}
+            </ul>
+
+            <h3>Find people</h3>
             <input
                 name="user"
                 placeholder="search users"
