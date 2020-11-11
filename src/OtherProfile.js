@@ -46,7 +46,7 @@ export default class OtherProfile extends Component {
                         {this.state.first} {this.state.last}
                     </h2>
 
-                    <img src={this.state.url || "/no-user-image.jpg"} />
+                    <img src={this.state.url} />
 
                     <h3>Bio: {this.state.bio}</h3>
                 </div>

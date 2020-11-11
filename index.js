@@ -292,6 +292,21 @@ app.get("/api/user/:id", (req, res) => {
     }
 });
 
+app.get("/api/users", (req, res) => {
+    const { id } = req.session.userId;
+
+    console.log("id: ", id);
+
+    db.getMatchingUsers(id)
+        .then(({ rows }) => {
+            res.json(rows[0]);
+            console.log("rows: ", rows);
+        })
+        .catch((err) => {
+            console.log("error in /user server", err);
+        });
+});
+
 app.get("/welcome", (req, res) => {
     if (req.session.userId) {
         res.redirect("/");

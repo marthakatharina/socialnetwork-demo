@@ -6,6 +6,7 @@ import axios from "./axios";
 import Profile from "./Profile";
 import { BrowserRouter, Route } from "react-router-dom";
 import OtherProfile from "./OtherProfile";
+import FindPeople from "./FindPeople";
 
 export default class App extends React.Component {
     constructor() {
@@ -120,6 +121,13 @@ export default class App extends React.Component {
                             />
                         )}
                     />
+                    <FindPeople />;
+                    {/* <Route
+                        path="/users"
+                        render={() => {
+                            <FindPeople />;
+                        }}
+                    /> */}
                 </div>
             </BrowserRouter>
         );
