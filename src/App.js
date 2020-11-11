@@ -121,13 +121,8 @@ export default class App extends React.Component {
                             />
                         )}
                     />
-                    <FindPeople />
-                    {/* <Route
-                        path="/users"
-                        render={(props) => {
-                            <FindPeople key={props.id} />;
-                        }} */}
-                    {/* /> */}
+
+                    <Route path="/users" render={() => <FindPeople />} />
                 </div>
             </BrowserRouter>
         );

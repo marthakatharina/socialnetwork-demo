@@ -295,11 +295,11 @@ app.get("/api/user/:id", (req, res) => {
 app.get("/api/users", (req, res) => {
     db.lastThreeUsers()
         .then(({ rows }) => {
-            res.json(rows);
+            res.json({ rows });
             console.log("row in lastThreeUsers: ", rows);
         })
         .catch((err) => {
-            console.log("error in /user server", err);
+            console.log("error in /users server", err);
         });
 });
 
@@ -310,7 +310,7 @@ app.get("/api/users/:user", (req, res) => {
 
     db.getMatchingUsers(user)
         .then(({ rows }) => {
-            res.json(rows[0]);
+            res.json({ rows });
             console.log("rows in getMatchingUsers : ", rows);
         })
         .catch((err) => {
