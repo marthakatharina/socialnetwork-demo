@@ -4,10 +4,6 @@ export default function ProfilePic({ first, last, url, toggleUploader }) {
     console.log("props form App: ", first, last, url);
     return (
         <>
-            {/* <h2>
-                {first} {last}
-            </h2> */}
-
             <img
                 className="user-image-small"
                 src={url || "/no-user-image.jpg"}

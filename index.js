@@ -314,7 +314,22 @@ app.get("/api/users/:user", (req, res) => {
             console.log("rows in getMatchingUsers : ", rows);
         })
         .catch((err) => {
-            console.log("error in /user server", err);
+            console.log("error in /users server", err);
+        });
+});
+
+app.get("/api/friendship/:user", (req, res) => {
+    const { user } = req.params;
+    const { id } = req.session.userId;
+    console.log("req.params in /friendship: ", req.params);
+
+    db.getFriendshipStatus(user, id)
+        .then(({ rows }) => {
+            res.json({ rows });
+            console.log("rows in getFriendshipStatus : ", rows);
+        })
+        .catch((err) => {
+            console.log("error in /friendship:", err);
         });
 });
 

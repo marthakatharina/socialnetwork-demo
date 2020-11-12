@@ -12,20 +12,29 @@ export default function Profile(props) {
         },
     };
 
+    const ProfilePic = ({ first, last, url, onClick, classProp }) => (
+        <img
+            className={classProp}
+            src={url}
+            alt={`${first} ${last}`}
+            onClick={onClick}
+        />
+    );
+
     return (
         <>
             <h1 style={styling.header}>PROFILE COMPONENT</h1>
             <h2>
-                Name: {props.first} {props.last}
+                {props.first} {props.last}
             </h2>
-            <div className="user-image-large">
+            <div>
                 <ProfilePic
                     id={props.id}
                     first={props.first}
                     last={props.last}
                     url={props.url}
-                    bio={props.bio}
-                    toggleUploader={props.toggleUploader}
+                    onClick={props.toggleUploader}
+                    classProp="user-image-large"
                 />
             </div>
             <h3>Bio: {props.bio}</h3>
