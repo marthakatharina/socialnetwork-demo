@@ -3,7 +3,7 @@ import axios from "./axios";
 
 export default function FriendButton({ id }) {
     const [error, setError] = useState(false);
-    const [buttonMessage, setButtonMessage] = useState([]);
+    const [buttonMessage, setButtonMessage] = useState();
 
     useEffect(() => {
         axios
@@ -16,24 +16,25 @@ export default function FriendButton({ id }) {
     }, [buttonMessage]);
 
     function buttonClick() {
-        // axios
-        //     .post(`/friendship/${buttonMessage}`)
-        //     .then(({ data }) => {
-        //         console.log("data", data);
-        //         setButtonMessage(data);
-        //     })
-        //     .catch((err) => setError(err));
-        (async () => {
-            try {
-                let { data } = await axios.post(
-                    `/friendship/${buttonMessage}`,
-                    { id: id }
-                );
+        axios
+            .post(`/friendship/${buttonMessage}`, { id: id })
+            .then(({ data }) => {
+                console.log("data", data);
                 setButtonMessage();
-            } catch (err) {
-                console.log("err in buttonClick()", err);
-            }
-        })();
+            })
+            .catch((err) => setError(err));
+
+        // (async () => {
+        //     try {
+        //         let { data } = await axios.post(
+        //             `/friendship/${buttonMessage}`,
+        //             { id: id }
+        //         );
+        //         setButtonMessage();
+        //     } catch (err) {
+        //         console.log("err in buttonClick()", err);
+        //     }
+        // })();
     }
 
     return (

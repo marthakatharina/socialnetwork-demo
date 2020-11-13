@@ -321,7 +321,7 @@ app.get("/api/users/:user", (req, res) => {
 app.get("/friendship/:otherUserId", (req, res) => {
     const { otherUserId } = req.params;
     const { id } = req.session.userId;
-    console.log("req.params in /friendship: ", req.params);
+    console.log("req.params in /friendship/:otherUserId ", req.params);
 
     db.getFriendshipStatus(otherUserId, id)
         .then(({ rows }) => {
@@ -343,7 +343,7 @@ app.get("/friendship/:otherUserId", (req, res) => {
             }
         })
         .catch((err) => {
-            console.log("error in /friendship:", err);
+            console.log("error in /friendship/:otherUserId:", err);
         });
 });
 
@@ -352,32 +352,32 @@ app.post("/friendship/:buttonMessage", (req, res) => {
     const { buttonMessage } = req.params;
     if (buttonMessage == "Send Friend Request") {
         db.sendFriendRequest(id, req.session.userId.id, false)
-            .then(({ data }) => {
-                res.json({ data, success: true });
+            .then(({ rows }) => {
+                res.json({ rows, success: true });
             })
             .catch((err) => {
                 console.log("error in sendFriendRequest:", err);
             });
     } else if (buttonMessage == "Unfriend") {
         db.cancelFriendRequest(id, req.session.userId.id)
-            .then(({ data }) => {
-                res.json({ data, success: true });
+            .then(({ rows }) => {
+                res.json({ rows, success: true });
             })
             .catch((err) => {
                 console.log("error in cancelFriendRequest:", err);
             });
     } else if (buttonMessage == "Accept Friend Request") {
         db.acceptFriendRequest(id, req.session.userId.id, true)
-            .then(({ data }) => {
-                res.json({ data, success: true });
+            .then(({ rows }) => {
+                res.json({ rows, success: true });
             })
             .catch((err) => {
                 console.log("error in acceptFriendRequest:", err);
             });
     } else if (buttonMessage == "Cancel Friend Request") {
         db.cancelFriendRequest(id, req.session.userId.id)
-            .then(({ data }) => {
-                res.json({ data, success: true });
+            .then(({ rows }) => {
+                res.json({ rows, success: true });
             })
             .catch((err) => {
                 console.log("error in cancelFriendRequest:", err);
