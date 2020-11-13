@@ -343,7 +343,7 @@ app.get("/friendship/:otherUserId", (req, res) => {
             }
         })
         .catch((err) => {
-            console.log("error in /friendship/:otherUserId:", err);
+            console.log("error in /friendship getFriendshipStatus:", err);
         });
 });
 

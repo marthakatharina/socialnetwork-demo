@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "./axios";
 
-export default function FriendButton({ id }) {
+export default function FriendButton({ otherUserId }) {
     const [error, setError] = useState(false);
     const [buttonMessage, setButtonMessage] = useState();
 
     useEffect(() => {
         axios
-            .get(`/friendship/${id}`)
+            .get(`/friendship/${otherUserId}`)
             .then(({ data }) => {
                 console.log("data", data);
                 setButtonMessage(data.message);
@@ -17,9 +17,12 @@ export default function FriendButton({ id }) {
 
     function buttonClick() {
         axios
-            .post(`/friendship/${buttonMessage}`, { id: id })
+            .post(`/friendship/${buttonMessage}`, {
+                id: otherUserId,
+            })
             .then(({ data }) => {
                 console.log("data", data);
+
                 setButtonMessage();
             })
             .catch((err) => setError(err));
