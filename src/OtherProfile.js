@@ -42,7 +42,7 @@ export default class OtherProfile extends Component {
             <>
                 <h1>Other Profile component</h1>
                 {this.state.error && <div>Oops, something went wrong!</div>}
-                <div key={this.state.id}>
+                <div>
                     <h2>
                         {this.state.first} {this.state.last}
                     </h2>
@@ -51,7 +51,7 @@ export default class OtherProfile extends Component {
 
                     <h3>Bio: {this.state.bio}</h3>
                 </div>
-                <FriendButton />
+                <FriendButton id={this.state.id} key={this.state.id} />
             </>
         );
     }

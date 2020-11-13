@@ -3,32 +3,45 @@ import axios from "./axios";
 
 export default function FriendButton({ id }) {
     const [error, setError] = useState(false);
-    const [buttonMessage, setButtonMessage] = useState("");
+    const [buttonMessage, setButtonMessage] = useState();
 
     useEffect(() => {
         axios
-            .get(`/api/fiendship/${id}`)
+            .get(`/friendship/${id}`)
             .then(({ data }) => {
                 console.log("data", data);
-                setUsers(data.rows);
+                setButtonMessage(data.message);
             })
             .catch((err) => setError(err));
+    }, [buttonMessage]);
 
-        axios
-            .post(`/api/fiendship/${buttonMessage}`)
-            .then(({ data }) => {
-                console.log("data", data);
+    const buttonClick = () => {
+        // axios
+        //     .post(`/friendship/${buttonMessage}`)
+        //     .then(({ data }) => {
+        //         console.log("data", data);
 
-                setUsers(data.rows);
-            })
-            .catch((err) => setError(err));
-    });
+        //         setButtonMessage(data.message);
+        //     })
+        //     .catch((err) => setError(err));
+        (async () => {
+            try {
+                let { data } = await axios.post(
+                    `/friendship/${buttonMessage}`,
+                    { id: id }
+                );
+                setButtonMessage(data.message);
+            } catch (err) {
+                console.log("err in buttonClick()", err);
+            }
+        })();
+    };
 
     return (
         <>
             {error && <div>Oops, something went wrong!</div>}
 
-            <button>{buttonMessage}</button>
+            <button onClick={buttonClick}>{buttonMessage}</button>
         </>
     );
 }
