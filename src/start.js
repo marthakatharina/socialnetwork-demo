@@ -1,9 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import Registration from "./registration";
 import Welcome from "./welcome";
-// import Logo from "./logo";
 import App from "./App";
+
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import reduxPromise from "redux-promise";
+import { composeWithDevTools } from "redux-devtools-extension";
+import reducer from "./reducer";
+
+const store = createStore(
+    reducer,
+    composeWithDevTools(applyMiddleware(reduxPromise))
+);
 
 let elem;
 const userIsLoggedIn = location.pathname != "/welcome";
@@ -11,12 +20,14 @@ const userIsLoggedIn = location.pathname != "/welcome";
 if (!userIsLoggedIn) {
     elem = <Welcome />;
 } else {
-    // elem = <h1>I will be the logo component</h1>;
-    // elem = <Logo />;
-    elem = <App />;
+    elem = (
+        <Provider store={store}>
+            <App />
+        </Provider>
+    );
 }
 
-ReactDOM.render(/*<Registration/>*/ elem, document.querySelector("main"));
+ReactDOM.render(elem, document.querySelector("main"));
 
 // function HelloWorld() {
 //     return <div>Hello, World!</div>;
