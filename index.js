@@ -417,6 +417,41 @@ app.post("/friendship/:buttonMessage", (req, res) => {
 //     }
 // });
 
+app.get("/getFriends", (req, res) => {
+    const { id } = req.session.userId;
+
+    db.getFriends(id)
+        .then(({ rows }) => {
+            res.json({ rows });
+            console.log("rows in getFriends : ", rows);
+        })
+        .catch((err) => {
+            console.log("error in / getFriends", err);
+        });
+});
+
+app.post("/acceptFriend", (req, res) => {
+    const { id } = req.body;
+    db.acceptFriendRequest(id, req.session.userId.id, true)
+        .then(({ rows }) => {
+            res.json({ rows, success: true });
+        })
+        .catch((err) => {
+            console.log("error in acceptFriendRequest:", err);
+        });
+});
+
+app.post("/unfriend", (req, res) => {
+    const { id } = req.body;
+    db.cancelFriendRequest(id, req.session.userId.id)
+        .then(({ rows }) => {
+            res.json({ rows, success: true });
+        })
+        .catch((err) => {
+            console.log("error in cancelFriendRequest:", err);
+        });
+});
+
 app.get("/welcome", (req, res) => {
     if (req.session.userId) {
         res.redirect("/");
