@@ -78,18 +78,18 @@ module.exports.getFriendshipStatus = (recipient_id, sender_id) => {
     );
 };
 
-module.exports.sendFriendRequest = (sender_id, recipient_id, accepted) => {
+module.exports.sendFriendRequest = (recipient_id, sender_id) => {
     return db.query(
-        `INSERT INTO friendships (sender_id, recipient_id, accepted) VALUES ($1, $2, $3);
+        `INSERT INTO friendships (recipient_id, sender_id) VALUES ($1, $2);
 `,
-        [sender_id, recipient_id, accepted]
+        [recipient_id, sender_id]
     );
 };
 
-module.exports.acceptFriendRequest = (recipient_id, sender_id, accepted) => {
+module.exports.acceptFriendRequest = (recipient_id, sender_id) => {
     return db.query(
-        `UPDATE friendships SET accepted=$3 WHERE sender_id=$2 AND recipient_id=$1`,
-        [recipient_id, sender_id, accepted]
+        `UPDATE friendships SET accepted=true WHERE recipient_id=$1 AND sender_id=$2`,
+        [recipient_id, sender_id]
     );
 };
 

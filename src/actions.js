@@ -4,7 +4,7 @@ export async function receiveFriendsWannabes() {
     try {
         const { data } = await axios.get("/getFriends");
 
-        console.log("data: ", data);
+        console.log("data in receiveFriendsWannabes: ", data);
         return {
             type: "RECEIVE_FRIENDS_WANNABES",
             friendships: data.rows,
@@ -15,21 +15,36 @@ export async function receiveFriendsWannabes() {
 }
 
 export async function acceptFriend(otherUserId) {
-    const { data } = await axios.post(`/acceptFriend/${otherUserId}`);
-    if (data.success) {
-        return {
-            type: "ACCEPT_FRIEND_REQUEST",
+    let buttonMessage = "Accept Friend Request";
+    try {
+        const { data } = await axios.post(`/friendship/${buttonMessage}`, {
             id: otherUserId,
-        };
+        });
+        console.log("data in acceptFriend: ", data);
+        if (data.success) {
+            return {
+                type: "ACCEPT_FRIEND_REQUEST",
+                id: otherUserId,
+            };
+        }
+    } catch (err) {
+        console.log("err in acceptFriend: ", err);
     }
 }
 
 export async function unFriend(otherUserId) {
-    const { data } = await axios.post(`/unfriend/${otherUserId}`);
-    if (data.success) {
-        return {
-            type: "UNFRIEND",
+    let buttonMessage = "Unfriend";
+    try {
+        const { data } = await axios.post(`/friendship/${buttonMessage}`, {
             id: otherUserId,
-        };
+        });
+        if (data.success) {
+            return {
+                type: "UNFRIEND",
+                id: otherUserId,
+            };
+        }
+    } catch (err) {
+        console.log("err in unFriend: ", err);
     }
 }

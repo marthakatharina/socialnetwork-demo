@@ -331,7 +331,7 @@ app.get("/friendship/:otherUserId", (req, res) => {
             } else if (rows[0].accepted) {
                 res.json({ message: "Unfriend" });
             } else if (!rows[0].accepted) {
-                if (rows[0].recipient_id == id) {
+                if (rows[0].sender_id == id) {
                     res.json({
                         message: "Cancel Friend Request",
                     });
@@ -351,7 +351,7 @@ app.post("/friendship/:buttonMessage", (req, res) => {
     const { id } = req.body;
     const { buttonMessage } = req.params;
     if (buttonMessage == "Send Friend Request") {
-        db.sendFriendRequest(id, req.session.userId.id, false)
+        db.sendFriendRequest(id, req.session.userId.id)
             .then(({ rows }) => {
                 res.json({ rows, success: true });
             })
@@ -367,7 +367,7 @@ app.post("/friendship/:buttonMessage", (req, res) => {
                 console.log("error in cancelFriendRequest:", err);
             });
     } else if (buttonMessage == "Accept Friend Request") {
-        db.acceptFriendRequest(id, req.session.userId.id, true)
+        db.acceptFriendRequest(req.session.userId.id, id)
             .then(({ rows }) => {
                 res.json({ rows, success: true });
             })
@@ -430,27 +430,27 @@ app.get("/getFriends", (req, res) => {
         });
 });
 
-app.post("/acceptFriend", (req, res) => {
-    const { id } = req.body;
-    db.acceptFriendRequest(id, req.session.userId.id, true)
-        .then(({ rows }) => {
-            res.json({ rows, success: true });
-        })
-        .catch((err) => {
-            console.log("error in acceptFriendRequest:", err);
-        });
-});
+// app.post("/acceptFriend", (req, res) => {
+//     const { id } = req.body;
+//     db.acceptFriendRequest(id, req.session.userId.id, true)
+//         .then(({ rows }) => {
+//             res.json({ rows, success: true });
+//         })
+//         .catch((err) => {
+//             console.log("error in acceptFriendRequest:", err);
+//         });
+// });
 
-app.post("/unfriend", (req, res) => {
-    const { id } = req.body;
-    db.cancelFriendRequest(id, req.session.userId.id)
-        .then(({ rows }) => {
-            res.json({ rows, success: true });
-        })
-        .catch((err) => {
-            console.log("error in cancelFriendRequest:", err);
-        });
-});
+// app.post("/unfriend", (req, res) => {
+//     const { id } = req.body;
+//     db.cancelFriendRequest(id, req.session.userId.id)
+//         .then(({ rows }) => {
+//             res.json({ rows, success: true });
+//         })
+//         .catch((err) => {
+//             console.log("error in cancelFriendRequest:", err);
+//         });
+// });
 
 app.get("/welcome", (req, res) => {
     if (req.session.userId) {

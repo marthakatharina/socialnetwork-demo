@@ -1,26 +1,28 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { receiveFriendsWannabes, acceptFriend, unFriend } from "./actions";
+import { Link } from "react-router-dom";
 
 export default function Friends() {
     const dispatch = useDispatch();
-    const friendships = useSelector(
+
+    const friends = useSelector(
         (state) =>
-            state.frienships &&
-            state.frienships.filter((user) => user.accepted == true)
+            state.friendships &&
+            state.friendships.filter((user) => user.accepted == true)
     );
 
-    // const wannabies = useSelector(
-    //     (state) =>
-    //         state.frienships &&
-    //         state.frienships.filter((user) => user.accepted == false)
-    // );
+    const wannabies = useSelector(
+        (state) =>
+            state.friendships &&
+            state.friendships.filter((user) => user.accepted == false)
+    );
 
     useEffect(() => {
         dispatch(receiveFriendsWannabes());
     }, []);
 
-    // if (!friendships) {
+    // if (!friends) {
     //     return null;
     //     // return "No friends yet";
     // }
@@ -30,8 +32,9 @@ export default function Friends() {
             <h1>Friends component</h1>
 
             <div style={{ margin: "20px" }}>
-                {friendships &&
-                    friendships.map((user) => (
+                {friends && <h2>Friends</h2>}
+                {friends &&
+                    friends.map((user) => (
                         <div key={user.id}>
                             <Link to={`/user/${user.id}`}>
                                 <div style={{ marginTop: "50px" }}>
@@ -45,6 +48,35 @@ export default function Friends() {
                                     </p>
                                 </div>
                             </Link>
+                            <button onClick={() => dispatch(unFriend(user.id))}>
+                                Unfriend
+                            </button>
+                        </div>
+                    ))}
+            </div>
+
+            <div style={{ margin: "20px" }}>
+                {wannabies && <h2>Wannabies</h2>}
+                {wannabies &&
+                    wannabies.map((user) => (
+                        <div key={user.id}>
+                            <Link to={`/user/${user.id}`}>
+                                <div style={{ marginTop: "50px" }}>
+                                    <img
+                                        style={{ width: "100px" }}
+                                        src={user.url || "./no-user-image.jpg"}
+                                        alt={user.first + "" + user.last}
+                                    />
+                                    <p style={{ margin: "0px" }}>
+                                        {user.first} {user.last}
+                                    </p>
+                                </div>
+                            </Link>
+                            <button
+                                onClick={() => dispatch(acceptFriend(user.id))}
+                            >
+                                Accept
+                            </button>
                         </div>
                     ))}
             </div>

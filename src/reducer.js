@@ -6,8 +6,6 @@ export default function reducer(state = {}, action) {
     }
 
     if (action.type == "ACCEPT_FRIEND_REQUEST") {
-        // const user = { ...state.user, bio: action.bio };
-        // return { ...state, user };
         state = {
             ...state,
             friendships: state.friendships.map((user) => {
@@ -28,11 +26,7 @@ export default function reducer(state = {}, action) {
             ...state,
             friendships: state.friendships.filter((user) => {
                 if (user.id == action.id) {
-                    return {
-                        ...user,
-                        // unfriended: true,
-                        accepted: false,
-                    };
+                    return;
                 } else {
                     return user;
                 }
