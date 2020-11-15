@@ -40,7 +40,7 @@ export default class OtherProfile extends Component {
     render() {
         return (
             <>
-                <h1>Other Profile component</h1>
+                {/* <h1>Other Profile component</h1> */}
                 {this.state.error && <div>Oops, something went wrong!</div>}
                 <div>
                     <h2>

@@ -4,8 +4,20 @@ body {
     margin: 0;
 }
 
+.welcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .title {
-    color: rebeccapurple;
+    color: black;
+}
+
+.circle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .logo-small {
@@ -13,10 +25,45 @@ body {
     height: 100px;
 }
 
+.logo-large {
+    width: 600px;
+    height: 600px;
+    border: 20px solid black;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-dot {
+    width: 60px;
+    height: 60px;
+    border: 20px solid red;
+    border-radius: 100%;
+    background-color: red;
+    align-self: flex-end;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+
+input {
+    margin-top: 20px;
+}
+
+#welcome-button {
+    background-color: black;
+    color: white;
+    margin-top: 20px;
+}
+
 .user-image-small {
     width: 100px;
     height: 100px;
-    border: 1px solid white;
+    border: 10px solid black;
     border-radius: 100px;
 }
 
@@ -28,38 +75,51 @@ body {
     z-index: 2;
     width: 250px;
     /* max-width: 100%; */
-    height: 150px;
+    height: 500px;
     /* max-height: 100%; */
-    background-color: black;
-    color: cornflowerblue;
-    border: 1px solid black;
+    background-color: cornflowerblue;
+    color: black;
+    border: 10px solid black;
     border-radius: 10px;
 
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
-    align-items: center;
-    justify-content: space-between;
+    /* align-items: center;
+    justify-content: space-between; */
 
     padding: 10px;
 }
 
 .close-x {
-    font-size: larger;
-    align-self: flex-end;
+    font-size: 30px;
 }
 
 header {
+    padding: 20px;
     display: flex;
-    justify-content: space-between;
-    /* border-bottom: double;
-    border-bottom-width: 4px;
-    border-bottom-color: grey; */
-    color: red;
-    background-color: white;
+    justify-content: flex-end;
+    border-bottom: 15px solid black;
+    background-color: cornflowerblue;
+}
+
+.tiny-dot {
+    width: 10px;
+    height: 10px;
+    border: 1px solid red;
+    border-radius: 100%;
+    background-color: red;
+    align-self: flex-end;
 }
 
 .user-image-large {
     max-width: 200px;
     max-height: 200px;
+}
+
+.component {
+    margin: 40px;
+}
+
+#find-people-cont {
 }

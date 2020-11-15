@@ -39,28 +39,31 @@ export default class Login extends React.Component {
         console.log("this.state.error: ", this.state.error);
         return (
             <div>
-                <h2>I am the Login component</h2>
+                {/* <h2>I am the Login component</h2> */}
                 <h3>
                     Not a member? <Link to="/">Click here to Register!</Link>
                 </h3>
                 {this.state.error && <div>Oops, something went wrong!</div>}
+                <form>
+                    <input
+                        name="email"
+                        placeholder="email..."
+                        onChange={(e) => this.handleChange(e)}
+                    ></input>
+                    <input
+                        name="password"
+                        placeholder="password"
+                        type="password"
+                        onChange={(e) => this.handleChange(e)}
+                    ></input>
 
-                <input
-                    name="email"
-                    placeholder="email..."
-                    onChange={(e) => this.handleChange(e)}
-                ></input>
-                <input
-                    name="password"
-                    placeholder="password"
-                    type="password"
-                    onChange={(e) => this.handleChange(e)}
-                ></input>
-                <button onClick={() => this.submit()}>Login</button>
-
+                    <button id="welcome-button" onClick={() => this.submit()}>
+                        Login
+                    </button>
+                </form>
                 <h3>
                     Forgot your password?{" "}
-                    <Link to="/reset">Click here to reset your password</Link>
+                    <Link to="/reset">Click here to reset.</Link>
                 </h3>
             </div>
         );

@@ -21,14 +21,20 @@ export default class ResetPassword extends React.Component {
                         Please enter the email address with which you registered
                     </h3>
                     {this.state.error && <div>Oops, something went wrong!</div>}
+                    <form>
+                        <input
+                            name="email"
+                            placeholder="email"
+                            onChange={(e) => this.handleChange(e)}
+                        ></input>
 
-                    <input
-                        name="email"
-                        placeholder="email"
-                        onChange={(e) => this.handleChange(e)}
-                    ></input>
-
-                    <button onClick={() => this.submitEmail()}>Reset</button>
+                        <button
+                            id="welcome-button"
+                            onClick={() => this.submitEmail()}
+                        >
+                            Reset
+                        </button>
+                    </form>
                 </div>
             );
         } else if (step == 2) {
@@ -41,20 +47,27 @@ export default class ResetPassword extends React.Component {
                         enter your new password
                     </h3>
                     {this.state.error && <div>Oops, something went wrong!</div>}
+                    <form>
+                        <input
+                            name="code"
+                            placeholder="enter code"
+                            key={step}
+                            onChange={(e) => this.handleChange(e)}
+                        ></input>
+                        <input
+                            name="password"
+                            placeholder="new password"
+                            type="password"
+                            onChange={(e) => this.handleChange(e)}
+                        ></input>
 
-                    <input
-                        name="code"
-                        placeholder="enter code"
-                        key={step}
-                        onChange={(e) => this.handleChange(e)}
-                    ></input>
-                    <input
-                        name="password"
-                        placeholder="new password"
-                        type="password"
-                        onChange={(e) => this.handleChange(e)}
-                    ></input>
-                    <button onClick={() => this.submitCode()}>Reset</button>
+                        <button
+                            id="welcome-button"
+                            onClick={() => this.submitCode()}
+                        >
+                            Reset
+                        </button>
+                    </form>
                 </div>
             );
         } else if (step == 3) {

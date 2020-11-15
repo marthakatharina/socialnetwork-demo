@@ -8,17 +8,22 @@ import ResetPasword from "./password-reset";
 
 export default function Welcome() {
     return (
-        <div>
-            <h1 className="title">I am the welcome component</h1>
-            <img src="/circle-icon.png" />
-            {/* <Registration /> */}
-            <HashRouter>
-                <div>
-                    <Route exact path="/" component={Registration} />
-                    <Route path="/login" component={Login} />
-                    <Route path="/reset" component={ResetPasword} />
+        <>
+            {/* <img src="/circle-icon.png" /> */}
+
+            <div className="welcome-container">
+                <div className="logo-dot"></div>
+                <div className="circle-container">
+                    <div className="logo-large">
+                        <h1 className="title">Our Circle</h1>
+                        <HashRouter>
+                            <Route exact path="/" component={Registration} />
+                            <Route path="/login" component={Login} />
+                            <Route path="/reset" component={ResetPasword} />
+                        </HashRouter>
+                    </div>
                 </div>
-            </HashRouter>
-        </div>
+            </div>
+        </>
     );
 }

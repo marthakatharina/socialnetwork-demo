@@ -36,34 +36,55 @@ export default function FindPeople() {
 
     return (
         <>
-            <h2>Find People component</h2>
-            {error && <div>Oops, something went wrong!</div>}
+            {/* <h2>Find People component</h2> */}
+            <div className="component">
+                {error && <div>Oops, something went wrong!</div>}
 
-            <div style={{ margin: "20px" }}>
-                <input
-                    placeholder="find people..."
-                    onChange={(e) => setUser(e.target.value)}
-                    defaultValue={user}
-                />
-            </div>
-            <div style={{ margin: "20px" }}>
-                {Array.isArray(users) &&
-                    users.map((user) => (
-                        <div key={user.id}>
-                            <Link to={`/user/${user.id}`}>
-                                <div style={{ marginTop: "50px" }}>
-                                    <img
-                                        style={{ width: "100px" }}
-                                        src={user.url || "./no-user-image.jpg"}
-                                        alt={user.first + "" + user.last}
-                                    />
-                                    <p style={{ margin: "0px" }}>
-                                        {user.first} {user.last}
-                                    </p>
-                                </div>
-                            </Link>
-                        </div>
-                    ))}
+                <div style={{ margin: "20px" }}>
+                    <input
+                        placeholder="Search People..."
+                        onChange={(e) => setUser(e.target.value)}
+                        defaultValue={user}
+                    />
+                </div>
+
+                <div
+                    style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "flex-start",
+                    }}
+                >
+                    {Array.isArray(users) &&
+                        users.map((user) => (
+                            <div key={user.id}>
+                                <Link to={`/user/${user.id}`}>
+                                    <div
+                                        style={{
+                                            margin: "40px 20px",
+                                        }}
+                                    >
+                                        <div>
+                                            <img
+                                                style={{ width: "100px" }}
+                                                src={
+                                                    user.url ||
+                                                    "./no-user-image.jpg"
+                                                }
+                                                alt={
+                                                    user.first + "" + user.last
+                                                }
+                                            />
+
+                                            <p style={{ margin: "0px" }}>
+                                                {user.first} {user.last}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                </div>
             </div>
         </>
     );
