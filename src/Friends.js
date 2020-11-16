@@ -1,6 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { receiveFriendsWannabes, acceptFriend, unFriend } from "./actions";
+import {
+    receiveFriendsWannabes,
+    acceptFriend,
+    unFriend,
+    receivePending,
+    cancelRequest,
+} from "./actions";
 import { Link } from "react-router-dom";
 
 export default function Friends() {
@@ -18,8 +24,15 @@ export default function Friends() {
             state.friendships.filter((user) => user.accepted == false)
     );
 
+    const pending = useSelector(
+        (state) =>
+            state.requests &&
+            state.requests.filter((user) => user.accepted == false)
+    );
+
     useEffect(() => {
         dispatch(receiveFriendsWannabes());
+        dispatch(receivePending());
     }, []);
 
     // if (!friends) {
@@ -76,6 +89,32 @@ export default function Friends() {
                                 onClick={() => dispatch(acceptFriend(user.id))}
                             >
                                 Accept
+                            </button>
+                        </div>
+                    ))}
+            </div>
+
+            <div style={{ margin: "20px" }}>
+                {pending && <h2>Pending</h2>}
+                {pending &&
+                    pending.map((user) => (
+                        <div key={user.id}>
+                            <Link to={`/user/${user.id}`}>
+                                <div style={{ marginTop: "50px" }}>
+                                    <img
+                                        style={{ width: "100px" }}
+                                        src={user.url || "./no-user-image.jpg"}
+                                        alt={user.first + "" + user.last}
+                                    />
+                                    <p style={{ margin: "0px" }}>
+                                        {user.first} {user.last}
+                                    </p>
+                                </div>
+                            </Link>
+                            <button
+                                onClick={() => dispatch(cancelRequest(user.id))}
+                            >
+                                Cancel
                             </button>
                         </div>
                     ))}

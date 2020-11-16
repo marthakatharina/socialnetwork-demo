@@ -11,6 +11,8 @@ const multer = require("multer"); // multer defines where to save files
 const uidSafe = require("uid-safe"); // encodes file name
 const path = require("path"); // grabs extention (jpg)
 const s3 = require("./s3");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" }); // localhost:8080 has to be change to a https domain if online
 
 app.use(
     cookieSession({
@@ -386,7 +388,7 @@ app.post("/friendship/:buttonMessage", (req, res) => {
 });
 
 // app.post("/friendship/:buttonMessage", async (req, res) => {
-//     // const { userId } = req.session;
+
 //     const { id } = req.body;
 //     if (req.params.buttonMessage == "Send Friend Request") {
 //         const { data } = await db.sendFriendRequest(
@@ -427,6 +429,21 @@ app.get("/getFriends", (req, res) => {
         })
         .catch((err) => {
             console.log("error in / getFriends", err);
+        });
+});
+
+app.get("/getRequests", (req, res) => {
+    const { id } = req.session.userId;
+
+    db.getRequests(id)
+        .then(({ rows }) => {
+            // if (rows.sender_id == rows[0].id) {
+            res.json({ rows });
+            console.log("rows in getRequests : ", rows);
+            // }
+        })
+        .catch((err) => {
+            console.log("error in / getRequests", err);
         });
 });
 
@@ -477,6 +494,33 @@ app.get("*", function (req, res) {
     }
 });
 
-app.listen(8080, function () {
+server.listen(8080, function () {
     console.log("I'm listening.");
+});
+
+io.on("connection", function (socket) {
+    console.log(`socket with the id ${socket.id} is now connected`);
+
+    socket.emit("welcome", {
+        name: "marta",
+    });
+    //  socket.emit can be only used by a client
+
+    io.emit("messageSentWithIoEmit", {
+        id: socket.id,
+    }); // io.emit for chatroom
+
+    //   socket.emit, io.emit and socket.broadcast can all be used in server
+
+    socket.broadcast.emit("broadcastEmit", {
+        socketId: socket.id,
+    });
+
+    socket.on("messageFromClient", (data) => {
+        console.log("data from the client: ", data);
+    });
+
+    socket.on("disconnect", () => {
+        console.log("user " + socket.id + " has disconnected");
+    });
 });

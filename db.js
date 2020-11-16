@@ -115,3 +115,13 @@ module.exports.getFriends = (id) => {
         [id]
     );
 };
+
+module.exports.getRequests = (id) => {
+    return db.query(
+        ` SELECT users.id, first, last, url, accepted
+  FROM friendships
+  JOIN users
+  ON (accepted = false AND sender_id = $1 AND recipient_id = users.id)`,
+        [id]
+    );
+};
