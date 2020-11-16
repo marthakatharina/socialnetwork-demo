@@ -36,7 +36,6 @@ export default function FindPeople() {
 
     return (
         <>
-            {/* <h2>Find People component</h2> */}
             <div className="component">
                 {error && <div>Oops, something went wrong!</div>}
 
@@ -66,7 +65,11 @@ export default function FindPeople() {
                                     >
                                         <div>
                                             <img
-                                                style={{ width: "100px" }}
+                                                style={{
+                                                    width: "120px",
+                                                    height: "120px",
+                                                    objectFit: "cover",
+                                                }}
                                                 src={
                                                     user.url ||
                                                     "./no-user-image.jpg"

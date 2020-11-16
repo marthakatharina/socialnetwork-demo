@@ -42,82 +42,114 @@ export default function Friends() {
 
     return (
         <>
-            <h1>Friends component</h1>
+            <div className="friends-component">
+                {/* <h1>Friends component</h1> */}
 
-            <div style={{ margin: "20px" }}>
-                {friends && <h2>Friends</h2>}
-                {friends &&
-                    friends.map((user) => (
-                        <div key={user.id}>
-                            <Link to={`/user/${user.id}`}>
-                                <div style={{ marginTop: "50px" }}>
-                                    <img
-                                        style={{ width: "100px" }}
-                                        src={user.url || "./no-user-image.jpg"}
-                                        alt={user.first + "" + user.last}
-                                    />
-                                    <p style={{ margin: "0px" }}>
-                                        {user.first} {user.last}
-                                    </p>
-                                </div>
-                            </Link>
-                            <button onClick={() => dispatch(unFriend(user.id))}>
-                                Unfriend
-                            </button>
-                        </div>
-                    ))}
-            </div>
+                <div style={{ margin: "20px" }}>
+                    {friends && <h2>Friends</h2>}
+                    {friends &&
+                        friends.map((user) => (
+                            <div key={user.id}>
+                                <Link to={`/user/${user.id}`}>
+                                    <div style={{ marginTop: "50px" }}>
+                                        <img
+                                            style={{ width: "100px" }}
+                                            src={
+                                                user.url ||
+                                                "./no-user-image.jpg"
+                                            }
+                                            alt={user.first + "" + user.last}
+                                        />
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                color: "#3d3b3b",
+                                            }}
+                                        >
+                                            {user.first} {user.last}
+                                        </p>
+                                    </div>
+                                </Link>
+                                <button
+                                    onClick={() => dispatch(unFriend(user.id))}
+                                >
+                                    Unfriend
+                                </button>
+                            </div>
+                        ))}
+                </div>
 
-            <div style={{ margin: "20px" }}>
-                {wannabies && <h2>Wannabies</h2>}
-                {wannabies &&
-                    wannabies.map((user) => (
-                        <div key={user.id}>
-                            <Link to={`/user/${user.id}`}>
-                                <div style={{ marginTop: "50px" }}>
-                                    <img
-                                        style={{ width: "100px" }}
-                                        src={user.url || "./no-user-image.jpg"}
-                                        alt={user.first + "" + user.last}
-                                    />
-                                    <p style={{ margin: "0px" }}>
-                                        {user.first} {user.last}
-                                    </p>
-                                </div>
-                            </Link>
-                            <button
-                                onClick={() => dispatch(acceptFriend(user.id))}
-                            >
-                                Accept
-                            </button>
-                        </div>
-                    ))}
-            </div>
+                <div style={{ margin: "20px" }}>
+                    {wannabies && <h2>Wannabies</h2>}
+                    {wannabies &&
+                        wannabies.map((user) => (
+                            <div key={user.id}>
+                                <Link to={`/user/${user.id}`}>
+                                    <div style={{ marginTop: "50px" }}>
+                                        <img
+                                            style={{ width: "100px" }}
+                                            src={
+                                                user.url ||
+                                                "./no-user-image.jpg"
+                                            }
+                                            alt={user.first + "" + user.last}
+                                        />
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                color: "#3d3b3b",
+                                            }}
+                                        >
+                                            {user.first} {user.last}
+                                        </p>
+                                    </div>
+                                </Link>
+                                <button
+                                    onClick={() =>
+                                        dispatch(acceptFriend(user.id))
+                                    }
+                                >
+                                    Accept
+                                </button>
+                            </div>
+                        ))}
+                </div>
 
-            <div style={{ margin: "20px" }}>
-                {pending && <h2>Pending</h2>}
-                {pending &&
-                    pending.map((user) => (
-                        <div key={user.id}>
-                            <Link to={`/user/${user.id}`}>
-                                <div style={{ marginTop: "50px" }}>
-                                    <img
-                                        style={{ width: "100px" }}
-                                        src={user.url || "./no-user-image.jpg"}
-                                        alt={user.first + "" + user.last}
-                                    />
-                                    <p style={{ margin: "0px" }}>
-                                        {user.first} {user.last}
-                                    </p>
-                                </div>
-                            </Link>
-                            <button
-                                onClick={() => dispatch(cancelRequest(user.id))}
-                            >
-                                Cancel
-                            </button>
-                        </div>
-                    ))}
+                <div style={{ margin: "20px" }}>
+                    {pending && <h2>Pending</h2>}
+                    {pending &&
+                        pending.map((user) => (
+                            <div key={user.id}>
+                                <Link to={`/user/${user.id}`}>
+                                    <div style={{ marginTop: "50px" }}>
+                                        <img
+                                            style={{ width: "100px" }}
+                                            src={
+                                                user.url ||
+                                                "./no-user-image.jpg"
+                                            }
+                                            alt={user.first + "" + user.last}
+                                        />
+                                        <p
+                                            style={{
+                                                margin: "0px",
+                                                color: "#3d3b3b",
+                                            }}
+                                        >
+                                            {user.first} {user.last}
+                                        </p>
+                                    </div>
+                                </Link>
+                                <button
+                                    onClick={() =>
+                                        dispatch(cancelRequest(user.id))
+                                    }
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        ))}
+                </div>
             </div>
         </>
     );

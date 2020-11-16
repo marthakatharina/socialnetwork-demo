@@ -469,17 +469,17 @@ app.get("/getRequests", (req, res) => {
 //         });
 // });
 
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.json({ success: true });
+});
+
 app.get("/welcome", (req, res) => {
     if (req.session.userId) {
         res.redirect("/");
     } else {
         res.sendFile(__dirname + "/index.html");
     }
-});
-
-app.get("/logout", (req, res) => {
-    req.session = null;
-    res.json({ success: true });
 });
 
 // this get must always be the last

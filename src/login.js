@@ -46,8 +46,9 @@ export default class Login extends React.Component {
                         Click here to Register!
                     </Link>
                 </h3>
+
                 {this.state.error && <div>Oops, something went wrong!</div>}
-                <form>
+                <div className="form">
                     <input
                         name="email"
                         placeholder="email..."
@@ -63,11 +64,11 @@ export default class Login extends React.Component {
                     <button id="welcome-button" onClick={() => this.submit()}>
                         Login
                     </button>
-                </form>
+                </div>
                 <h3>
                     Forgot your password?{" "}
                     <Link style={{ color: "#3d3b3b" }} to="/reset">
-                        Click here to reset.
+                        Click here to Reset.
                     </Link>
                 </h3>
             </div>

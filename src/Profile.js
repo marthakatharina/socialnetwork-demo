@@ -33,12 +33,12 @@ export default function Profile(props) {
                         id={props.id}
                         first={props.first}
                         last={props.last}
-                        url={props.url}
+                        url={props.url || "/no-user-image.jpg"}
                         onClick={props.toggleUploader}
                         classProp="user-image-large"
                     />
                 </div>
-                <h3>Bio: {props.bio}</h3>
+                <h3>{props.bio || "No bio yet."}</h3>
 
                 <BioEditor bio={props.bio} setBio={props.setBio} />
             </div>

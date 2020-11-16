@@ -18,10 +18,11 @@ export default class ResetPassword extends React.Component {
                 <div>
                     {/* <h2>I am the Reset Password component</h2> */}
                     <h3>
-                        Please enter the email address with which you registered
+                        Please enter the email address with which you
+                        registered.
                     </h3>
                     {this.state.error && <div>Oops, something went wrong!</div>}
-                    <form>
+                    <div className="form">
                         <input
                             name="email"
                             placeholder="email"
@@ -34,20 +35,19 @@ export default class ResetPassword extends React.Component {
                         >
                             Reset
                         </button>
-                    </form>
+                    </div>
                 </div>
             );
         } else if (step == 2) {
-            // return( <div>show 2nd display</div>)
             return (
                 <div>
                     {/* <h2>I am the Reset Password component</h2> */}
                     <h3>
-                        Please enter the code sent to your email address and
-                        enter your new password
+                        Please enter the code which was sent to your email
+                        address and enter a new password.
                     </h3>
                     {this.state.error && <div>Oops, something went wrong!</div>}
-                    <form>
+                    <div className="form">
                         <input
                             name="code"
                             placeholder="enter code"
@@ -67,7 +67,7 @@ export default class ResetPassword extends React.Component {
                         >
                             Reset
                         </button>
-                    </form>
+                    </div>
                 </div>
             );
         } else if (step == 3) {
@@ -76,7 +76,7 @@ export default class ResetPassword extends React.Component {
                 <div>
                     {/* <h2>I am the Reset Password component</h2> */}
                     <h3>
-                        Go back to <Link to="/login">log in</Link>
+                        Go back to <Link to="/login">Login</Link>
                     </h3>
                 </div>
             );

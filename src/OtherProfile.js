@@ -40,18 +40,23 @@ export default class OtherProfile extends Component {
     render() {
         return (
             <>
-                {/* <h1>Other Profile component</h1> */}
-                {this.state.error && <div>Oops, something went wrong!</div>}
-                <div>
-                    <h2>
-                        {this.state.first} {this.state.last}
-                    </h2>
+                <div className="component">
+                    {/* <h1>Other Profile component</h1> */}
+                    {this.state.error && <div>Oops, something went wrong!</div>}
+                    <div>
+                        <h2>
+                            {this.state.first} {this.state.last}
+                        </h2>
 
-                    <img className="user-image-large" src={this.state.url} />
+                        <img
+                            className="user-image-large"
+                            src={this.state.url || "/no-user-image.jpg"}
+                        />
 
-                    <h3>Bio: {this.state.bio}</h3>
+                        <h3>{this.state.bio || "No bio yet."}</h3>
+                    </div>
+                    <FriendButton otherUserId={this.props.match.params.id} />
                 </div>
-                <FriendButton otherUserId={this.props.match.params.id} />
             </>
         );
     }

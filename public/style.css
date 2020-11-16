@@ -12,12 +12,15 @@ body {
 
 .title {
     color: #3d3b3b;
+    /* justify-self: flex-start; */
+    margin: 20px;
 }
 
 .circle-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 20px;
 }
 
 .logo-small {
@@ -26,9 +29,9 @@ body {
 }
 
 .logo-large {
-    width: 600px;
-    height: 600px;
-    border: 20px solid #3d3b3b;
+    width: 580px;
+    height: 580px;
+    border: 18px solid #3d3b3b;
     border-radius: 100%;
     display: flex;
     justify-content: center;
@@ -44,7 +47,7 @@ body {
     align-self: flex-end;
 }
 
-form {
+.form {
     display: flex;
     flex-direction: column;
     width: 200px;
@@ -52,17 +55,28 @@ form {
 
 input {
     margin-top: 20px;
-    background-color: white;
     border: 1px solid #3d3b3b;
 }
 
-#welcome-button {
-    /* background-color: white; */
+button {
     background-color: white;
-    color: #202020;
+    color: #3d3b3b;
+    margin-top: 15px;
+    border: 1px solid white;
+    border-radius: 20px;
+    box-shadow: 1px 2px rgb(136, 136, 136, 05);
+}
+
+button:active {
+    background-color: #3d3b3b;
+    color: white;
     margin-top: 20px;
     border: 1px solid #3d3b3b;
     border-radius: 20px;
+}
+
+button:focus {
+    outline: none;
 }
 
 .user-image-small {
@@ -70,6 +84,7 @@ input {
     height: 100px;
     border: 10px solid #3d3b3b;
     border-radius: 100px;
+    object-fit: cover;
 }
 
 .uploader-component {
@@ -98,6 +113,9 @@ input {
 
 .close-x {
     font-size: 30px;
+    font-weight: 800;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #3d3b3b;
 }
 
 header {
@@ -126,5 +144,19 @@ header {
     margin: 40px;
 }
 
-#find-people-cont {
+.friends-component {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+li {
+    list-style: none;
+    text-decoration: none;
+    margin: 20px 0;
+    font-size: 20px;
+}
+
+textarea {
+    width: 400px;
+    height: 200px;
 }

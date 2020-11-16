@@ -72,7 +72,12 @@ export default class Uploader extends React.Component {
 
                     <ul>
                         <li>
-                            <Link style={{ color: "#3d3b3b" }} to="/">
+                            <Link
+                                style={{
+                                    color: "#3d3b3b",
+                                }}
+                                to="/"
+                            >
                                 Go to your profile
                             </Link>
                         </li>
@@ -83,7 +88,7 @@ export default class Uploader extends React.Component {
                         </li>
                         <li>
                             <Link style={{ color: "#3d3b3b" }} to="/friends">
-                                See friends/wannabies
+                                See your friends
                             </Link>
                         </li>
                         <li>
