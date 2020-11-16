@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "./axios";
+import { Link } from "react-router-dom";
 
 export default class Uploader extends React.Component {
     constructor(props) {
@@ -68,6 +69,29 @@ export default class Uploader extends React.Component {
                     <button onClick={() => this.submitImage()}>
                         Upload image
                     </button>
+
+                    <ul>
+                        <li>
+                            <Link style={{ color: "#3d3b3b" }} to="/">
+                                Go to your profile
+                            </Link>
+                        </li>
+                        <li>
+                            <Link style={{ color: "#3d3b3b" }} to="/users">
+                                Find people
+                            </Link>
+                        </li>
+                        <li>
+                            <Link style={{ color: "#3d3b3b" }} to="/friends">
+                                See friends/wannabies
+                            </Link>
+                        </li>
+                        <li>
+                            <Link style={{ color: "#3d3b3b" }} to="/logout">
+                                Logout
+                            </Link>
+                        </li>
+                    </ul>
                 </div>
             </>
         );

@@ -42,7 +42,9 @@ export default class Registration extends React.Component {
             <div>
                 {/* <h2>I am the Registration component</h2> */}
                 <h3>
-                    <Link to="/login">Click here to Log in!</Link>
+                    <Link style={{ color: "#3d3b3b" }} to="/login">
+                        Click here to Log in!
+                    </Link>
                 </h3>
                 {this.state.error && <div>Oops, something went wrong!</div>}
                 <form>

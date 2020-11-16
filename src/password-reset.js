@@ -16,7 +16,7 @@ export default class ResetPassword extends React.Component {
             // return( <div>show 1st display</div>)
             return (
                 <div>
-                    <h2>I am the Reset Password component</h2>
+                    {/* <h2>I am the Reset Password component</h2> */}
                     <h3>
                         Please enter the email address with which you registered
                     </h3>
@@ -41,7 +41,7 @@ export default class ResetPassword extends React.Component {
             // return( <div>show 2nd display</div>)
             return (
                 <div>
-                    <h2>I am the Reset Password component</h2>
+                    {/* <h2>I am the Reset Password component</h2> */}
                     <h3>
                         Please enter the code sent to your email address and
                         enter your new password
@@ -74,7 +74,7 @@ export default class ResetPassword extends React.Component {
             // return (<div>show 3rd display</div>)
             return (
                 <div>
-                    <h2>I am the Reset Password component</h2>
+                    {/* <h2>I am the Reset Password component</h2> */}
                     <h3>
                         Go back to <Link to="/login">log in</Link>
                     </h3>

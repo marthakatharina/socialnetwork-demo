@@ -460,6 +460,11 @@ app.get("/welcome", (req, res) => {
     }
 });
 
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.json({ success: true });
+});
+
 // this get must always be the last
 app.get("*", function (req, res) {
     console.log("req.session: ", req.session);

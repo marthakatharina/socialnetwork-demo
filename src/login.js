@@ -41,7 +41,10 @@ export default class Login extends React.Component {
             <div>
                 {/* <h2>I am the Login component</h2> */}
                 <h3>
-                    Not a member? <Link to="/">Click here to Register!</Link>
+                    Not a member?{" "}
+                    <Link style={{ color: "#3d3b3b" }} to="/">
+                        Click here to Register!
+                    </Link>
                 </h3>
                 {this.state.error && <div>Oops, something went wrong!</div>}
                 <form>
@@ -63,7 +66,9 @@ export default class Login extends React.Component {
                 </form>
                 <h3>
                     Forgot your password?{" "}
-                    <Link to="/reset">Click here to reset.</Link>
+                    <Link style={{ color: "#3d3b3b" }} to="/reset">
+                        Click here to reset.
+                    </Link>
                 </h3>
             </div>
         );
