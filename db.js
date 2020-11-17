@@ -125,3 +125,19 @@ module.exports.getRequests = (id) => {
         [id]
     );
 };
+
+module.exports.getChatMessages = (sender_id) => {
+    return db.query(
+        `SELECT * FROM chat_messages WHERE sender_id=$1 ORDER BY id DESC LIMIT 10`,
+        [sender_id]
+    );
+};
+
+module.exports.postChatMessages = (sender_id, message) => {
+    // console.log("sender_id, message: ", sender_id, message);
+    return db.query(
+        `INSERT INTO chat_messages (sender_id, message)
+        VALUES ($1, $2) RETURNING *`,
+        [sender_id, message]
+    );
+};

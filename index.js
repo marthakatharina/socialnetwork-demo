@@ -14,12 +14,22 @@ const s3 = require("./s3");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { origins: "localhost:8080" }); // localhost:8080 has to be change to a https domain if online
 
-app.use(
-    cookieSession({
-        secret: "Secret is kept",
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-    })
-);
+// app.use(
+//     cookieSession({
+//         secret: "Secret is kept",
+//         maxAge: 1000 * 60 * 60 * 24 * 14,
+//     })
+// );
+
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90,
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(csurf());
 
@@ -447,28 +457,6 @@ app.get("/getRequests", (req, res) => {
         });
 });
 
-// app.post("/acceptFriend", (req, res) => {
-//     const { id } = req.body;
-//     db.acceptFriendRequest(id, req.session.userId.id, true)
-//         .then(({ rows }) => {
-//             res.json({ rows, success: true });
-//         })
-//         .catch((err) => {
-//             console.log("error in acceptFriendRequest:", err);
-//         });
-// });
-
-// app.post("/unfriend", (req, res) => {
-//     const { id } = req.body;
-//     db.cancelFriendRequest(id, req.session.userId.id)
-//         .then(({ rows }) => {
-//             res.json({ rows, success: true });
-//         })
-//         .catch((err) => {
-//             console.log("error in cancelFriendRequest:", err);
-//         });
-// });
-
 app.get("/logout", (req, res) => {
     req.session = null;
     res.json({ success: true });
@@ -498,29 +486,68 @@ server.listen(8080, function () {
     console.log("I'm listening.");
 });
 
-io.on("connection", function (socket) {
-    console.log(`socket with the id ${socket.id} is now connected`);
+io.on("connection", (socket) => {
+    console.log(`socket with id ${socket.id}, just connected`);
+    if (!socket.request.session.userId.id) {
+        return socket.disconnect(true);
+    }
 
-    socket.emit("welcome", {
-        name: "marta",
-    });
-    //  socket.emit can be only used by a client
+    const userId = socket.request.session.userId.id;
 
-    io.emit("messageSentWithIoEmit", {
-        id: socket.id,
-    }); // io.emit for chatroom
-
-    //   socket.emit, io.emit and socket.broadcast can all be used in server
-
-    socket.broadcast.emit("broadcastEmit", {
-        socketId: socket.id,
-    });
-
-    socket.on("messageFromClient", (data) => {
-        console.log("data from the client: ", data);
+    app.get("/chat", (req, res) => {
+        db.getChatMessages().then(({ data }) => {
+            io.emit(
+                "getChatMessages",
+                // "here we will ultimately send back a bunch of objects in an array that we got from our DB, it will be the last ten messages and probably look something like this: data.rows.reverse() "
+                {
+                    rows: data.rows.reverse(),
+                }
+            );
+        });
     });
 
-    socket.on("disconnect", () => {
-        console.log("user " + socket.id + " has disconnected");
+    socket.on("New msg", (data) => {
+        console.log("received new msg from client:", data);
+        // we want to find out who send this msg :D
+        console.log("author of the msg was user with id:", userId);
+        // we need to add this msg to the chat table
+        // we also want to retrieve the information of the author of the msg specifically first, maybe last (?), and url from our users table
+        // compose an msg object containing the user info and the new message that
+        // got send make sure it structurally matches with what your message
+        // objects in the chat history look like
+        app.post("/chat", (req, res) => {
+            const { message } = req.body;
+            db.postChatMessages(message, userId).then(({ data }) => {
+                io.emit("addToChatMessages", data);
+            });
+        });
     });
 });
+
+///// IVANA'S ENCOUNTER /////
+// io.on("connection", function (socket) {
+//     console.log(`socket with the id ${socket.id} is now connected`);
+
+//     socket.emit("welcome", {
+//         name: "marta",
+//     });
+//     //  socket.emit can be only used by a client
+
+//     io.emit("messageSentWithIoEmit", {
+//         id: socket.id,
+//     }); // io.emit for chatroom
+
+//     //   socket.emit, io.emit and socket.broadcast can all be used in server
+
+//     socket.broadcast.emit("broadcastEmit", {
+//         socketId: socket.id,
+//     });
+
+//     socket.on("messageFromClient", (data) => {
+//         console.log("data from the client: ", data);
+//     });
+
+//     socket.on("disconnect", () => {
+//         console.log("user " + socket.id + " has disconnected");
+//     });
+// });

@@ -50,10 +50,17 @@ export default function Friends() {
                     {friends &&
                         friends.map((user) => (
                             <div key={user.id}>
-                                <Link to={`/user/${user.id}`}>
+                                <Link
+                                    style={{ textDecoration: "none" }}
+                                    to={`/user/${user.id}`}
+                                >
                                     <div style={{ marginTop: "50px" }}>
                                         <img
-                                            style={{ width: "100px" }}
+                                            style={{
+                                                width: "100px",
+                                                height: "100px",
+                                                objectFit: "cover",
+                                            }}
                                             src={
                                                 user.url ||
                                                 "./no-user-image.jpg"
@@ -84,10 +91,17 @@ export default function Friends() {
                     {wannabies &&
                         wannabies.map((user) => (
                             <div key={user.id}>
-                                <Link to={`/user/${user.id}`}>
+                                <Link
+                                    style={{ textDecoration: "none" }}
+                                    to={`/user/${user.id}`}
+                                >
                                     <div style={{ marginTop: "50px" }}>
                                         <img
-                                            style={{ width: "100px" }}
+                                            style={{
+                                                width: "100px",
+                                                height: "100px",
+                                                objectFit: "cover",
+                                            }}
                                             src={
                                                 user.url ||
                                                 "./no-user-image.jpg"
@@ -120,10 +134,17 @@ export default function Friends() {
                     {pending &&
                         pending.map((user) => (
                             <div key={user.id}>
-                                <Link to={`/user/${user.id}`}>
+                                <Link
+                                    style={{ textDecoration: "none" }}
+                                    to={`/user/${user.id}`}
+                                >
                                     <div style={{ marginTop: "50px" }}>
                                         <img
-                                            style={{ width: "100px" }}
+                                            style={{
+                                                width: "100px",
+                                                height: "100px",
+                                                objectFit: "cover",
+                                            }}
                                             src={
                                                 user.url ||
                                                 "./no-user-image.jpg"

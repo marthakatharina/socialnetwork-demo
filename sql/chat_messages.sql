@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS chat_messages CASCADE;
+
+ CREATE TABLE chat_messages(
+   id SERIAL PRIMARY KEY,
+   sender_id INT REFERENCES users(id) NOT NULL,
+   message TEXT NOT NULL,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+ );

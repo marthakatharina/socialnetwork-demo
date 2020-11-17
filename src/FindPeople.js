@@ -57,10 +57,13 @@ export default function FindPeople() {
                     {Array.isArray(users) &&
                         users.map((user) => (
                             <div key={user.id}>
-                                <Link to={`/user/${user.id}`}>
+                                <Link
+                                    style={{ textDecoration: "none" }}
+                                    to={`/user/${user.id}`}
+                                >
                                     <div
                                         style={{
-                                            margin: "40px 20px",
+                                            margin: "20px",
                                         }}
                                     >
                                         <div>
@@ -79,7 +82,13 @@ export default function FindPeople() {
                                                 }
                                             />
 
-                                            <p style={{ margin: "0px" }}>
+                                            <p
+                                                style={{
+                                                    margin: "0px",
+                                                    color: "#3d3b3b",
+                                                    textAlign: "center",
+                                                }}
+                                            >
                                                 {user.first} {user.last}
                                             </p>
                                         </div>

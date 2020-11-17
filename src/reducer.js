@@ -55,5 +55,29 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "RECEIVE_CHAT_MESSAGES") {
+        {
+            state = Object.assign({}, state, {
+                chatMessages: action.chatMessages,
+            });
+        }
+    }
+
+    if (action.type == "CHAT_MESSAGE") {
+        state = {
+            ...state,
+            chatMessage: state.chatMessage.map((each) => {
+                if (each.id == action.id) {
+                    return {
+                        ...each,
+                        message: "",
+                    };
+                } else {
+                    return each;
+                }
+            }),
+        };
+    }
+
     return state;
 }

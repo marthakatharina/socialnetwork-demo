@@ -9,6 +9,7 @@ import OtherProfile from "./OtherProfile";
 import FindPeople from "./FindPeople";
 import Friends from "./Friends";
 import Logout from "./Logout";
+import Chat from "./Chat";
 
 export default class App extends React.Component {
     constructor() {
@@ -129,6 +130,11 @@ export default class App extends React.Component {
                 <div>
                     <Route path="/friends" render={() => <Friends />} />
                 </div>
+
+                <div>
+                    <Route path="/chat" render={() => <Chat />} />
+                </div>
+
                 <div>
                     <Route path="/logout" render={() => <Logout />} />
                 </div>

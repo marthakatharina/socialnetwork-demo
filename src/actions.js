@@ -1,4 +1,5 @@
 import axios from "./axios";
+import { socket } from "./socket";
 
 export async function receiveFriendsWannabes() {
     try {
@@ -79,4 +80,21 @@ export async function cancelRequest(otherUserId) {
     } catch (err) {
         console.log("err in cancelRequest: ", err);
     }
+}
+
+export function chatMessages() {
+    const { data } = socket("/chat");
+    return {
+        type: "RECEIVE_CHAT_MESSAGES",
+        chatMessages: data.rows,
+    };
+}
+
+export function chatMessage() {
+    const { data } = socket("/chat");
+
+    return {
+        type: "CHAT_MESSAGE",
+        chatMessage: data.rows.message,
+    };
 }

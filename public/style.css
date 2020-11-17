@@ -64,7 +64,7 @@ button {
     margin-top: 15px;
     border: 1px solid white;
     border-radius: 20px;
-    box-shadow: 1px 2px rgb(136, 136, 136, 05);
+    box-shadow: 1px 2px rgb(136, 136, 136, 09);
 }
 
 button:active {
@@ -119,7 +119,7 @@ button:focus {
 }
 
 header {
-    padding: 20px;
+    padding: 20px 30px;
     display: flex;
     justify-content: flex-end;
     border-bottom: 10px solid #3d3b3b;
@@ -141,7 +141,7 @@ header {
 }
 
 .component {
-    margin: 40px;
+    margin: 40px 60px;
 }
 
 .friends-component {
@@ -158,5 +158,11 @@ li {
 
 textarea {
     width: 400px;
+    height: 100px;
+}
+
+.chat-container {
+    width: 400px;
     height: 200px;
+    overflow-y: scroll;
 }
