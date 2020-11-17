@@ -494,19 +494,18 @@ io.on("connection", (socket) => {
 
     const userId = socket.request.session.userId.id;
 
-    app.get("/chat", (req, res) => {
-        db.getChatMessages().then(({ data }) => {
-            io.emit(
-                "getChatMessages",
-                // "here we will ultimately send back a bunch of objects in an array that we got from our DB, it will be the last ten messages and probably look something like this: data.rows.reverse() "
-                {
-                    rows: data.rows.reverse(),
-                }
-            );
-        });
+    db.getChatMessages(userId).then(({ rows }) => {
+        console.log("rows in get /chat server: ", rows);
+        io.emit(
+            "RECEIVE_CHAT_MESSAGES",
+            // "here we will ultimately send back a bunch of objects in an array that we got from our DB, it will be the last ten messages and probably look something like this: data.rows.reverse() "
+            {
+                rows: rows.reverse(),
+            }
+        );
     });
 
-    socket.on("New msg", (data) => {
+    socket.on("NEW_MESSAGE", (data) => {
         console.log("received new msg from client:", data);
         // we want to find out who send this msg :D
         console.log("author of the msg was user with id:", userId);
@@ -515,13 +514,15 @@ io.on("connection", (socket) => {
         // compose an msg object containing the user info and the new message that
         // got send make sure it structurally matches with what your message
         // objects in the chat history look like
-        app.post("/chat", (req, res) => {
-            const { message } = req.body;
-            db.postChatMessages(message, userId).then(({ data }) => {
-                io.emit("addToChatMessages", data);
-            });
-        });
+        // app.post("/chat", (req, res) => {
+        // const { message } = body;
+        // console.log("req.body: ", req.body);
+        // db.postChatMessages(userId).then(({ data }) => {
+        //     console.log("data in post /chat server: ", data);
+        io.emit("NEW_MESSAGE", data);
     });
+    // });
+    // });
 });
 
 ///// IVANA'S ENCOUNTER /////

@@ -82,19 +82,22 @@ export async function cancelRequest(otherUserId) {
     }
 }
 
-export function chatMessages() {
-    const { data } = socket("/chat");
+export function chatMessages(msgs) {
+    // const { data } = msgs;
+    console.log("msgs in actions: ", msgs);
+
     return {
         type: "RECEIVE_CHAT_MESSAGES",
-        chatMessages: data.rows,
+        chatMessages: msgs.rows,
     };
 }
 
-export function chatMessage() {
-    const { data } = socket("/chat");
+export function chatMessage(newMsg) {
+    // const { data } = newMsg;
+    console.log("newMsg in actions: ", newMsg);
 
     return {
-        type: "CHAT_MESSAGE",
-        chatMessage: data.rows.message,
+        type: "NEW_MESSAGE",
+        chatMessage: newMsg.rows,
     };
 }

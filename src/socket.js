@@ -18,7 +18,7 @@ export const init = (store) => {
 
         // );
 
-        socket.on("getChatMessages", (msgs) =>
+        socket.on("RECEIVE_CHAT_MESSAGES", (msgs) =>
             store.dispatch(chatMessages(msgs))
         );
 
@@ -28,7 +28,7 @@ export const init = (store) => {
         //     // to redux global state
         // });
 
-        socket.on("addToChatMessages", (newMsg) =>
+        socket.on("NEW_MESSAGE", (newMsg) =>
             store.dispatch(chatMessage(newMsg))
         );
     }

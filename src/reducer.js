@@ -63,20 +63,25 @@ export default function reducer(state = {}, action) {
         }
     }
 
-    if (action.type == "CHAT_MESSAGE") {
-        state = {
-            ...state,
-            chatMessage: state.chatMessage.map((each) => {
-                if (each.id == action.id) {
-                    return {
-                        ...each,
-                        message: "",
-                    };
-                } else {
-                    return each;
-                }
-            }),
-        };
+    if (action.type == "NEW_MESSAGE") {
+        // state = {
+        //     ...state,
+        //     chatMessage: state.chatMessage.filter((newMsg) => {
+        //         if (newMsg.id == action.id) {
+        //             return {
+        //                 ...newMsg,
+        //                 message: "",
+        //             };
+        //         } else {
+        //             return newMsg;
+        //         }
+        //     }),
+        // };
+        {
+            state = Object.assign({}, state, {
+                chatMessage: action.chatMessage,
+            });
+        }
     }
 
     return state;

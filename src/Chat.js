@@ -5,8 +5,8 @@ export default function Chat() {
     const chatMessages = useSelector((state) => state && state.chatMessages);
     console.log("chatMessages", chatMessages);
 
-    const chatMessage = useSelector((state) => state && state.chatMessage);
-    console.log("chatMessage", chatMessage);
+    // const chatMessage = useSelector((state) => state && state.chatMessage);
+    // console.log("chatMessage", chatMessage);
 
     const elemRef = useRef();
 
@@ -24,7 +24,7 @@ export default function Chat() {
         if (e.key === "Enter") {
             console.log("user want to send message");
             e.preventDefault();
-            socket.emit("New msg", e.target.value);
+            socket.emit("NEW_MESSAGE", e.target.value);
             e.target.value = "";
         }
     };
@@ -33,7 +33,12 @@ export default function Chat() {
         <>
             <h1>Welcome to Chat </h1>
             <div className="chat-container" ref={elemRef}>
-                <p>{chatMessage}</p>
+                <p>
+                    {chatMessages &&
+                        chatMessages.map((user) => {
+                            <div key={user.id}>{user.message}</div>;
+                        })}
+                </p>
                 {/* <p>chat messages</p>
                 <p>chat messages</p>
                 <p>chat messages</p>

@@ -126,10 +126,10 @@ module.exports.getRequests = (id) => {
     );
 };
 
-module.exports.getChatMessages = (sender_id) => {
+module.exports.getChatMessages = () => {
     return db.query(
-        `SELECT * FROM chat_messages WHERE sender_id=$1 ORDER BY id DESC LIMIT 10`,
-        [sender_id]
+        `SELECT * FROM chat_messages ORDER BY id DESC LIMIT 10`,
+        []
     );
 };
 
