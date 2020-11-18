@@ -98,6 +98,6 @@ export function chatMessage(newMsg) {
 
     return {
         type: "NEW_MESSAGE",
-        chatMessage: newMsg.rows,
+        message: newMsg,
     };
 }

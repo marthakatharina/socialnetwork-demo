@@ -24,7 +24,7 @@ export default function Chat() {
         if (e.key === "Enter") {
             console.log("user want to send message");
             e.preventDefault();
-            socket.emit("NEW_MESSAGE", { message: e.target.value });
+            socket.emit("New Message", e.target.value);
             e.target.value = "";
         }
     };
@@ -33,36 +33,16 @@ export default function Chat() {
         <>
             <h1>Welcome to Chat </h1>
             <div className="chat-container" ref={elemRef}>
-                <p>
-                    {chatMessages &&
-                        chatMessages.map((user) => {
-                            <div key={user.id}>{user.message}</div>;
-                        })}
-                </p>
-                {/* <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p>
-                <p>chat messages</p> */}
+                {chatMessages &&
+                    chatMessages.map((each) => (
+                        <div key={each.id}>
+                            <p>{each.message}</p>
+                        </div>
+                    ))}
             </div>
             <textarea
-                name="message"
-                type="text"
+                // name="message"
+                // type="text"
                 onKeyDown={enterKey}
                 placeholder="type message..."
             />

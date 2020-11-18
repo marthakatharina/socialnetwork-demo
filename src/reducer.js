@@ -66,7 +66,7 @@ export default function reducer(state = {}, action) {
     if (action.type == "NEW_MESSAGE") {
         // state = {
         //     ...state,
-        //     chatMessage: state.chatMessage.filter((newMsg) => {
+        //     message: state.message.map((newMsg) => {
         //         if (newMsg.id == action.id) {
         //             return {
         //                 ...newMsg,
@@ -79,7 +79,7 @@ export default function reducer(state = {}, action) {
         // };
         {
             state = Object.assign({}, state, {
-                chatMessage: action.chatMessage,
+                chatMessage: action.message,
             });
         }
     }

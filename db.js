@@ -133,11 +133,11 @@ module.exports.getChatMessages = () => {
     );
 };
 
-module.exports.postChatMessages = (sender_id, message) => {
+module.exports.postChatMessages = (message, sender_id) => {
     // console.log("sender_id, message: ", sender_id, message);
     return db.query(
-        `INSERT INTO chat_messages (sender_id, message)
-        VALUES ($1, $2) RETURNING *`,
-        [sender_id, message]
+        `INSERT INTO chat_messages (message, sender_id)
+        VALUES ($1, $2)`,
+        [message, sender_id]
     );
 };

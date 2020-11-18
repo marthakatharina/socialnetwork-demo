@@ -511,7 +511,7 @@ io.on("connection", (socket) => {
         });
     // });
 
-    socket.on("NEW_MESSAGE", (newMsg) => {
+    socket.on("New Message", (newMsg) => {
         console.log("received new msg from client:", newMsg);
         // we want to find out who send this msg :D
         console.log("author of the msg was user with id:", userId);
@@ -523,10 +523,10 @@ io.on("connection", (socket) => {
         // app.post("/chat", (req, res) => {
         // const { message } = req.body;
         // console.log("req.body: ", req.body);
-        db.postChatMessages(userId)
+        db.postChatMessages(newMsg, userId)
             .then(({ rows }) => {
-                console.log("data in post /chat server: ", rows);
-                io.emit("NEW_MESSAGE", { rows: newMsg.rows.message });
+                console.log("rows in post /chat server: ", rows);
+                io.emit("NEW_MESSAGE", { rows: newMsg });
             })
             .catch((err) => {
                 console.log("error in /chat  postChatMessages", err);
