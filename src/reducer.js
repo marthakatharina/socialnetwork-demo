@@ -64,24 +64,10 @@ export default function reducer(state = {}, action) {
     }
 
     if (action.type == "NEW_MESSAGE") {
-        // state = {
-        //     ...state,
-        //     message: state.message.map((newMsg) => {
-        //         if (newMsg.id == action.id) {
-        //             return {
-        //                 ...newMsg,
-        //                 message: "",
-        //             };
-        //         } else {
-        //             return newMsg;
-        //         }
-        //     }),
-        // };
-        {
-            state = Object.assign({}, state, {
-                chatMessage: action.message,
-            });
-        }
+        state = {
+            ...state,
+            chatMessages: [...state.chatMessages, action.message],
+        };
     }
 
     return state;

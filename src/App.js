@@ -132,7 +132,7 @@ export default class App extends React.Component {
                 </div>
 
                 <div>
-                    <Route path="/chat" render={() => <Chat />} />
+                    <Route path="/chat" component={Chat} />
                 </div>
 
                 <div>

@@ -494,45 +494,38 @@ io.on("connection", (socket) => {
 
     const userId = socket.request.session.userId.id;
 
-    // app.get("/chat", (req, res) => {
     db.getChatMessages(userId)
         .then(({ rows }) => {
             console.log("rows in get /chat server: ", rows);
-            io.emit(
-                "RECEIVE_CHAT_MESSAGES",
-                // "here we will ultimately send back a bunch of objects in an array that we got from our DB, it will be the last ten messages and probably look something like this: data.rows.reverse() "
-                {
-                    rows: rows.reverse(),
-                }
-            );
+            io.emit("RECEIVE_CHAT_MESSAGES", {
+                rows: rows.reverse(),
+            });
         })
         .catch((err) => {
             console.log("error in /chat  getChatMessages", err);
         });
-    // });
 
     socket.on("New Message", (newMsg) => {
         console.log("received new msg from client:", newMsg);
         // we want to find out who send this msg :D
         console.log("author of the msg was user with id:", userId);
-        // we need to add this msg to the chat table
-        // we also want to retrieve the information of the author of the msg specifically first, maybe last (?), and url from our users table
-        // compose an msg object containing the user info and the new message that
-        // got send make sure it structurally matches with what your message
-        // objects in the chat history look like
-        // app.post("/chat", (req, res) => {
-        // const { message } = req.body;
-        // console.log("req.body: ", req.body);
-        db.postChatMessages(newMsg, userId)
-            .then(({ rows }) => {
-                console.log("rows in post /chat server: ", rows);
-                io.emit("NEW_MESSAGE", { rows: newMsg });
-            })
-            .catch((err) => {
-                console.log("error in /chat  postChatMessages", err);
+
+        db.postChatMessages(newMsg, userId).then(({ rows }) => {
+            console.log("rows in post /chat server: ", rows);
+
+            db.userInfoById(userId).then(({ rows }) => {
+                let data = {
+                    first: rows[0].first,
+                    last: rows[0].last,
+                    url: rows[0].url,
+                    message: newMsg,
+                    id: rows[0].id,
+                    sender_id: rows[0].sender_id,
+                };
+                io.emit("NEW_MESSAGE", data);
             });
+        });
     });
-    // });
 });
 
 ///// IVANA'S ENCOUNTER /////

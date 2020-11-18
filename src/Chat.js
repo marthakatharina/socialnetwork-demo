@@ -18,7 +18,7 @@ export default function Chat() {
         // console.log("scrollHeight", elemRef.current.scrollHeight);
         elemRef.current.scrollTop =
             elemRef.current.scrollHeight - elemRef.current.clientHeight;
-    }, []);
+    }, [chatMessages]);
 
     const enterKey = (e) => {
         if (e.key === "Enter") {
@@ -31,21 +31,23 @@ export default function Chat() {
 
     return (
         <>
-            <h1>Welcome to Chat </h1>
-            <div className="chat-container" ref={elemRef}>
-                {chatMessages &&
-                    chatMessages.map((each) => (
-                        <div key={each.id}>
-                            <p>{each.message}</p>
-                        </div>
-                    ))}
+            <div className="component">
+                <h1>Chat Room</h1>
+                <div className="chat-container" ref={elemRef}>
+                    {chatMessages &&
+                        chatMessages.map((each) => (
+                            <div key={each.id}>
+                                <p>{each.message}</p>
+                            </div>
+                        ))}
+                </div>
+                <textarea
+                    // name="message"
+                    // type="text"
+                    onKeyDown={enterKey}
+                    placeholder="type message..."
+                />
             </div>
-            <textarea
-                // name="message"
-                // type="text"
-                onKeyDown={enterKey}
-                placeholder="type message..."
-            />
         </>
     );
 }

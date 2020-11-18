@@ -128,7 +128,7 @@ module.exports.getRequests = (id) => {
 
 module.exports.getChatMessages = () => {
     return db.query(
-        `SELECT * FROM chat_messages ORDER BY id DESC LIMIT 10`,
+        `SELECT * FROM chat_messages ORDER BY id DESC LIMIT 20`,
         []
     );
 };
