@@ -521,6 +521,7 @@ io.on("connection", (socket) => {
                     message: newMsg,
                     id: rows[0].id,
                     sender_id: rows[0].sender_id,
+                    created_at: rows[0].created_at,
                 };
                 io.emit("NEW_MESSAGE", data);
             });

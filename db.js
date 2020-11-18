@@ -1,4 +1,5 @@
 var spicedPg = require("spiced-pg");
+const { IdentityStore } = require("aws-sdk");
 var db = spicedPg(
     process.env.DATABASE_URL ||
         "postgres:postgres:postgres@localhost:5432/network"
@@ -128,7 +129,7 @@ module.exports.getRequests = (id) => {
 
 module.exports.getChatMessages = () => {
     return db.query(
-        `SELECT * FROM chat_messages ORDER BY id DESC LIMIT 20`,
+        `SELECT chat_messages.sender_id AS sender_id, chat_messages.message AS message, chat_messages.created_at AS created_at, users.url AS url, users.first AS first, users.last AS last FROM chat_messages JOIN users ON sender_id = users.id ORDER BY created_at DESC LIMIT 20`,
         []
     );
 };
