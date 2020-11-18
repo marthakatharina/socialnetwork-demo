@@ -24,7 +24,7 @@ export default function Chat() {
         if (e.key === "Enter") {
             console.log("user want to send message");
             e.preventDefault();
-            socket.emit("NEW_MESSAGE", e.target.value);
+            socket.emit("NEW_MESSAGE", { message: e.target.value });
             e.target.value = "";
         }
     };
@@ -60,7 +60,12 @@ export default function Chat() {
                 <p>chat messages</p>
                 <p>chat messages</p> */}
             </div>
-            <textarea onKeyDown={enterKey} placeholder="type message..." />
+            <textarea
+                name="message"
+                type="text"
+                onKeyDown={enterKey}
+                placeholder="type message..."
+            />
         </>
     );
 }

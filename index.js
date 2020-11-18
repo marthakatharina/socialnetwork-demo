@@ -494,19 +494,25 @@ io.on("connection", (socket) => {
 
     const userId = socket.request.session.userId.id;
 
-    db.getChatMessages(userId).then(({ rows }) => {
-        console.log("rows in get /chat server: ", rows);
-        io.emit(
-            "RECEIVE_CHAT_MESSAGES",
-            // "here we will ultimately send back a bunch of objects in an array that we got from our DB, it will be the last ten messages and probably look something like this: data.rows.reverse() "
-            {
-                rows: rows.reverse(),
-            }
-        );
-    });
+    // app.get("/chat", (req, res) => {
+    db.getChatMessages(userId)
+        .then(({ rows }) => {
+            console.log("rows in get /chat server: ", rows);
+            io.emit(
+                "RECEIVE_CHAT_MESSAGES",
+                // "here we will ultimately send back a bunch of objects in an array that we got from our DB, it will be the last ten messages and probably look something like this: data.rows.reverse() "
+                {
+                    rows: rows.reverse(),
+                }
+            );
+        })
+        .catch((err) => {
+            console.log("error in /chat  getChatMessages", err);
+        });
+    // });
 
-    socket.on("NEW_MESSAGE", (data) => {
-        console.log("received new msg from client:", data);
+    socket.on("NEW_MESSAGE", (newMsg) => {
+        console.log("received new msg from client:", newMsg);
         // we want to find out who send this msg :D
         console.log("author of the msg was user with id:", userId);
         // we need to add this msg to the chat table
@@ -515,13 +521,17 @@ io.on("connection", (socket) => {
         // got send make sure it structurally matches with what your message
         // objects in the chat history look like
         // app.post("/chat", (req, res) => {
-        // const { message } = body;
+        // const { message } = req.body;
         // console.log("req.body: ", req.body);
-        // db.postChatMessages(userId).then(({ data }) => {
-        //     console.log("data in post /chat server: ", data);
-        io.emit("NEW_MESSAGE", data);
+        db.postChatMessages(userId)
+            .then(({ rows }) => {
+                console.log("data in post /chat server: ", rows);
+                io.emit("NEW_MESSAGE", { rows: newMsg.rows.message });
+            })
+            .catch((err) => {
+                console.log("error in /chat  postChatMessages", err);
+            });
     });
-    // });
     // });
 });
 
