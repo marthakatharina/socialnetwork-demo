@@ -73,7 +73,9 @@ export default function Chat() {
                                                     color: "#3d3b3b",
                                                 }}
                                             >
-                                                {each.first} {each.last}:
+                                                {each.created_at.slice(0, 10)}{" "}
+                                                {each.created_at.slice(11, 16)}{" "}
+                                                {each.first} {each.last} wrote:
                                             </p>
                                         </div>
                                         <div

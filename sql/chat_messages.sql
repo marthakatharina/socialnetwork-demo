@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS chat_messages CASCADE;
 
  CREATE TABLE chat_messages(
    id SERIAL PRIMARY KEY REFERENCES,
-   sender_id INT REFERENCES users(id) NOT NULL,
-   message TEXT NOT NULL,
+   sender_id INT REFERENCES users(id) NOT NULL ON DELETE CASCADE,
+   message TEXT,
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
  );
 

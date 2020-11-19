@@ -142,3 +142,20 @@ module.exports.postChatMessages = (message, sender_id) => {
         [message, sender_id]
     );
 };
+
+module.exports.deleteAccount = (id) => {
+    return db.query(`DELETE FROM users WHERE id = $1;`, [id]);
+};
+// ON DELETE CASCADE next to REFERENCES clears the user's info in all other tables
+
+// module.exports.deleteUser = (id) => {
+//     return db.query(`DELETE FROM users WHERE id = $1;`, [id]);
+// };
+
+// module.exports.deleteFriendships = () => {
+//     return db.query(`DELETE FROM friendships WHERE id = users.id;`, []);
+// };
+
+// module.exports.deleteChats = () => {
+//     return db.query(`DELETE FROM chat_messages WHERE id = users.id;`, []);
+// };

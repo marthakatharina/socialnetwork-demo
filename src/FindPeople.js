@@ -39,6 +39,14 @@ export default function FindPeople() {
             <div className="component">
                 {error && <div>Oops, something went wrong!</div>}
 
+                <h1
+                    style={{
+                        margin: "20px",
+                    }}
+                >
+                    Find People
+                </h1>
+
                 <div style={{ margin: "20px" }}>
                     <input
                         placeholder="Search People..."

@@ -67,7 +67,7 @@ export default class Uploader extends React.Component {
                         onChange={(e) => this.handleChange(e)}
                     ></input>
                     <button onClick={() => this.submitImage()}>
-                        Upload image
+                        Upload Profile Picture
                     </button>
 
                     <ul>
@@ -78,22 +78,32 @@ export default class Uploader extends React.Component {
                                 }}
                                 to="/"
                             >
-                                Go to your profile
+                                Your Profile
                             </Link>
                         </li>
                         <li>
                             <Link style={{ color: "#3d3b3b" }} to="/users">
-                                Find people
+                                Find People
                             </Link>
                         </li>
                         <li>
                             <Link style={{ color: "#3d3b3b" }} to="/friends">
-                                See your friends
+                                Friendships
+                            </Link>
+                        </li>
+                        <li>
+                            <Link style={{ color: "#3d3b3b" }} to="/chat">
+                                Chat Room
                             </Link>
                         </li>
                         <li>
                             <Link style={{ color: "#3d3b3b" }} to="/logout">
                                 Logout
+                            </Link>
+                        </li>
+                        <li>
+                            <Link style={{ color: "#3d3b3b" }} to="/delete">
+                                Delete Account
                             </Link>
                         </li>
                     </ul>

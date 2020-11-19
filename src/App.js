@@ -10,6 +10,7 @@ import FindPeople from "./FindPeople";
 import Friends from "./Friends";
 import Logout from "./Logout";
 import Chat from "./Chat";
+import DeleteAccount from "./DeleteAccount";
 
 export default class App extends React.Component {
     constructor() {
@@ -30,13 +31,6 @@ export default class App extends React.Component {
         axios
             .get("/api/user")
             .then(({ data }) => {
-                // if (data) {
-                // this.setState((state) => ({
-                //     id: state.id,
-                //     first: state.first,
-                //     last: state.last,
-                //     url: state.url,
-                // }));
                 this.setState({
                     id: data.id,
                     first: data.first,
@@ -45,11 +39,6 @@ export default class App extends React.Component {
                     url: data.url,
                     bio: data.bio,
                 });
-                // } else {
-                //     this.setState({
-                //         error: true,
-                //     });
-                // }
             })
             .catch((err) => console.log("err in axios get /user: ", err));
     }
@@ -136,7 +125,10 @@ export default class App extends React.Component {
                 </div>
 
                 <div>
-                    <Route path="/logout" render={() => <Logout />} />
+                    <Route path="/logout" component={Logout} />
+                </div>
+                <div>
+                    <Route path="/delete" component={DeleteAccount} />
                 </div>
             </BrowserRouter>
         );

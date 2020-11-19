@@ -462,6 +462,24 @@ app.get("/logout", (req, res) => {
     res.json({ success: true });
 });
 
+app.get("/delete/confirm", (req, res) => {
+    // res.redirect("/delete/delete");
+    res.json({ success: true });
+});
+
+app.post("/delete/delete", (req, res) => {
+    const { id } = req.session.userId;
+
+    db.deleteAccount(id)
+        .then(() => {
+            req.session = null;
+            res.json({ success: true });
+        })
+        .catch((err) => {
+            console.log("error in /delete server", err);
+        });
+});
+
 app.get("/welcome", (req, res) => {
     if (req.session.userId) {
         res.redirect("/");
@@ -496,7 +514,7 @@ io.on("connection", (socket) => {
 
     db.getChatMessages(userId)
         .then(({ rows }) => {
-            console.log("rows in get /chat server: ", rows);
+            // console.log("rows in get /chat server: ", rows);
             io.emit("RECEIVE_CHAT_MESSAGES", {
                 rows: rows.reverse(),
             });
@@ -511,7 +529,7 @@ io.on("connection", (socket) => {
         console.log("author of the msg was user with id:", userId);
 
         db.postChatMessages(newMsg, userId).then(({ rows }) => {
-            console.log("rows in post /chat server: ", rows);
+            // console.log("rows in post /chat server: ", rows);
 
             db.userInfoById(userId).then(({ rows }) => {
                 let data = {

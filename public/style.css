@@ -64,7 +64,7 @@ button {
     margin-top: 15px;
     border: 1px solid white;
     border-radius: 20px;
-    box-shadow: 1px 2px rgb(136, 136, 136, 09);
+    box-shadow: 0.5px 1px 2px rgb(136, 136, 136, 09);
 }
 
 button:active {
