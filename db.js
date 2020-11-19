@@ -143,19 +143,25 @@ module.exports.postChatMessages = (message, sender_id) => {
     );
 };
 
+// module.exports.getWallMessages = (id) => {
+//     return db.query(
+//         `SELECT wall_messages.author_id AS author_id, wall_messages.message AS message, wall_messages.created_at AS created_at, users.url AS url, users.first AS first, users.last AS last FROM wall_messages JOIN users ON (user_id = $1 AND author_id = users.id)
+//         OR (author_id = $1 AND user_id = users.id) ORDER BY created_at DESC`,
+
+//         // `SELECT * FROM wall_messages WHERE (author_id = $1 AND user_id = $2) OR (author_id = $2 AND user_id = $1)`,
+//         [id]
+//     );
+// };
+
+// module.exports.postWallMessages = (message, author_id, user_id) => {
+//     return db.query(
+//         `INSERT INTO wall_messages (message, author_id, user_id)
+//         VALUES ($1, $2, $3)`,
+//         [message, author_id, user_id]
+//     );
+// };
+
 module.exports.deleteAccount = (id) => {
     return db.query(`DELETE FROM users WHERE id = $1;`, [id]);
 };
 // ON DELETE CASCADE next to REFERENCES clears the user's info in all other tables
-
-// module.exports.deleteUser = (id) => {
-//     return db.query(`DELETE FROM users WHERE id = $1;`, [id]);
-// };
-
-// module.exports.deleteFriendships = () => {
-//     return db.query(`DELETE FROM friendships WHERE id = users.id;`, []);
-// };
-
-// module.exports.deleteChats = () => {
-//     return db.query(`DELETE FROM chat_messages WHERE id = users.id;`, []);
-// };

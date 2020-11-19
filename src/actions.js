@@ -1,5 +1,4 @@
 import axios from "./axios";
-import { socket } from "./socket";
 
 export async function receiveFriendsWannabes() {
     try {
@@ -83,7 +82,6 @@ export async function cancelRequest(otherUserId) {
 }
 
 export function chatMessages(msgs) {
-    // const { data } = msgs;
     console.log("msgs in actions: ", msgs);
 
     return {
@@ -93,7 +91,6 @@ export function chatMessages(msgs) {
 }
 
 export function chatMessage(newMsg) {
-    // const { data } = newMsg;
     console.log("newMsg in actions: ", newMsg);
 
     return {
@@ -101,3 +98,21 @@ export function chatMessage(newMsg) {
         message: newMsg,
     };
 }
+
+// export function wallMessages(msgs) {
+//     console.log("msgs in actions: ", msgs);
+
+//     return {
+//         type: "RECEIVE_WALL_MESSAGES",
+//         wallMessages: msgs.rows,
+//     };
+// }
+
+// export function wallMessage(newMsg) {
+//     console.log("newMsg in actions: ", newMsg);
+
+//     return {
+//         type: "WALL_MESSAGE",
+//         message: newMsg,
+//     };
+// }

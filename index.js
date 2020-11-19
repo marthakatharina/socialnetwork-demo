@@ -545,6 +545,45 @@ io.on("connection", (socket) => {
             });
         });
     });
+
+    // socket.on("RECEIVE_WALL_MESSAGES", (user_id, author_id) => {
+    //     db.getWallMessages(user_id, author_id, userId)
+    //         .then(({ rows }) => {
+    //             console.log("rows in get /wall server: ", rows);
+    //             socket.emit("RECEIVE_WALL_MESSAGES", {
+    //                 rows: rows.reverse(),
+    //             });
+    //         })
+    //         .catch((err) => {
+    //             console.log("error in /wall  getWallMessages", err);
+    //         });
+    // });
+
+    // socket.on("New Wall Message", (user_id, author_id, newMsg) => {
+    //     console.log("received new msg from client:", newMsg);
+    //     // we want to find out who send this msg :D
+    //     console.log("author of the msg was user with id:", userId);
+
+    //     db.postWallMessages(user_id, author_id, newMsg, userId).then(
+    //         ({ rows }) => {
+    //             console.log("rows in post /wall server: ", rows);
+
+    //             db.userInfoById(userId).then(({ rows }) => {
+    //                 let data = {
+    //                     first: rows[0].first,
+    //                     last: rows[0].last,
+    //                     url: rows[0].url,
+    //                     message: newMsg,
+    //                     id: rows[0].id,
+    //                     author_id: rows[0].author_id,
+    //                     user_id: rows[0].user_id,
+    //                     created_at: rows[0].created_at,
+    //                 };
+    //                 io.emit("WALL_MESSAGE", data);
+    //             });
+    //         }
+    //     );
+    // });
 });
 
 ///// IVANA'S ENCOUNTER /////

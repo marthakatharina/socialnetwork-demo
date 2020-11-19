@@ -2,6 +2,7 @@ import React from "react";
 
 import BioEditor from "./BioEditor";
 import ProfilePic from "./ProfilePic";
+// import Wall from "./Wall";
 
 export default function Profile(props) {
     console.log("props in the profile component: ", props);
@@ -41,6 +42,10 @@ export default function Profile(props) {
                 <h3>{props.bio || "No bio yet."}</h3>
 
                 <BioEditor bio={props.bio} setBio={props.setBio} />
+
+                {/* <div>
+                    <Wall />
+                </div> */}
             </div>
         </>
     );

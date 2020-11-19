@@ -76,7 +76,10 @@ export default class ResetPassword extends React.Component {
                 <div>
                     {/* <h2>I am the Reset Password component</h2> */}
                     <h3>
-                        Go back to <Link to="/login">Login</Link>
+                        Go back to{" "}
+                        <Link style={{ color: "#3d3b3b" }} to="/login">
+                            Login
+                        </Link>
                     </h3>
                 </div>
             );

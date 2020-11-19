@@ -43,7 +43,7 @@ export default class Login extends React.Component {
                 <h3>
                     Not a member?{" "}
                     <Link style={{ color: "#3d3b3b" }} to="/">
-                        Click here to Register!
+                        Register!
                     </Link>
                 </h3>
 
@@ -68,7 +68,7 @@ export default class Login extends React.Component {
                 <h3>
                     Forgot your password?{" "}
                     <Link style={{ color: "#3d3b3b" }} to="/reset">
-                        Click here to Reset.
+                        Reset!
                     </Link>
                 </h3>
             </div>

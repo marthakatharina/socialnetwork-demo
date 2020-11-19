@@ -2,7 +2,7 @@
 
  CREATE TABLE friendships(
    id SERIAL PRIMARY KEY,
-   sender_id INT REFERENCES users(id) NOT NULL ON DELETE CASCADE,
-   recipient_id INT REFERENCES users(id) NOT NULL ON DELETE CASCADE,
+   sender_id INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
+   recipient_id INT REFERENCES users(id) ON DELETE CASCADE NOT NULL,
    accepted BOOLEAN DEFAULT false
  );

@@ -70,5 +70,20 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    // if (action.type == "RECEIVE_WALL_MESSAGES") {
+    //     {
+    //         state = Object.assign({}, state, {
+    //             wallMessages: action.wallMessages,
+    //         });
+    //     }
+    // }
+
+    // if (action.type == "WALL_MESSAGE") {
+    //     state = {
+    //         ...state,
+    //         wallMessages: [...state.wallMessages, action.message],
+    //     };
+    // }
+
     return state;
 }

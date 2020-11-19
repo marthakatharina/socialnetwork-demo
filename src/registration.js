@@ -46,7 +46,7 @@ export default class Registration extends React.Component {
                         {" "}
                         Already registered?{" "}
                         <Link style={{ color: "#3d3b3b" }} to="/login">
-                            Click here to Log in!
+                            Log in!
                         </Link>
                     </h3>
 
