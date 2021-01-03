@@ -1,5 +1,4 @@
 var spicedPg = require("spiced-pg");
-const { IdentityStore } = require("aws-sdk");
 var db = spicedPg(
     process.env.DATABASE_URL ||
         "postgres:postgres:postgres@localhost:5432/network"

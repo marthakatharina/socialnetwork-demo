@@ -1,7 +1,13 @@
+/* * {
+    box-sizing: border-box;
+} */
+
 body {
     background-color: #a8c8c8;
     color: #3d3b3b;
     margin: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .welcome-container {
@@ -41,6 +47,7 @@ body {
 .logo-dot {
     width: 60px;
     height: 60px;
+
     border: 20px solid #c84010;
     border-radius: 100%;
     background-color: #c84010;
@@ -65,7 +72,7 @@ button {
     margin-top: 15px;
     border: 1px solid white;
     border-radius: 20px;
-    box-shadow: 0.5px 1px 2px rgb(136, 136, 136, 09);
+    box-shadow: 0.2px 1px 4px rgb(150 150 150);
 }
 
 button:active {
@@ -164,3 +171,13 @@ textarea {
     height: 200px;
     overflow-y: scroll;
 }
+
+@media screen and (max-width: 768px) {
+    .welcome-container {
+        width: fit-content;
+    }
+}
+
+/* @media screen and (max-width: 560px) {
+   
+} */

@@ -11,6 +11,7 @@ const multer = require("multer"); // multer defines where to save files
 const uidSafe = require("uid-safe"); // encodes file name
 const path = require("path"); // grabs extention (jpg)
 const s3 = require("./s3");
+const { s3Url } = require("./config.json");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { origins: "localhost:8080" }); // localhost:8080 has to be change to a https domain if online
 
@@ -22,7 +23,7 @@ const io = require("socket.io")(server, { origins: "localhost:8080" }); // local
 // );
 
 const cookieSessionMiddleware = cookieSession({
-    secret: `I'm always angry.`,
+    secret: `The secret is kept.`,
     maxAge: 1000 * 60 * 60 * 24 * 90,
 });
 
@@ -500,7 +501,7 @@ app.get("*", function (req, res) {
     }
 });
 
-server.listen(8080, function () {
+server.listen(process.env.PORT || 8080, function () {
     console.log("I'm listening.");
 });
 
