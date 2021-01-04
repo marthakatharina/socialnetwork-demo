@@ -54,11 +54,10 @@ export default class Welcome extends React.Component {
                         onClick={() => this.toggle()}
                     ></div>
                     <div className="circle-container">
-                        <div
-                            className="logo-large"
-                            onClick={() => this.toggle()}
-                        >
-                            <h1 className="title">Our Circle</h1>
+                        <div className="logo-large">
+                            <h1 className="title" onClick={() => this.toggle()}>
+                                Our Circle
+                            </h1>
 
                             {this.state.isVisible && (
                                 <div className="popup-form">

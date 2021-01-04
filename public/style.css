@@ -20,6 +20,7 @@ body {
     color: #3d3b3b;
     /* justify-self: flex-start; */
     margin: 20px;
+    cursor: pointer;
 }
 
 .circle-container {
@@ -52,6 +53,7 @@ body {
     border-radius: 100%;
     background-color: #c84010;
     align-self: flex-end;
+    cursor: pointer;
 }
 
 .form {
