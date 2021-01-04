@@ -6,24 +6,81 @@ import Login from "./login";
 import { HashRouter, Route } from "react-router-dom";
 import ResetPasword from "./password-reset";
 
-export default function Welcome() {
-    return (
-        <>
-            {/* <img src="/circle-icon.png" /> */}
+// export default function Welcome() {
+//     return (
+//         <>
+//             <div className="welcome-container">
+//                 <div className="logo-dot"></div>
+//                 <div className="circle-container">
+//                     <div className="logo-large">
+//                         <h1 className="title">Our Circle</h1>
+//                         <div className="popup-form">
+//                             <HashRouter>
+//                                 <Route
+//                                     exact
+//                                     path="/"
+//                                     component={Registration}
+//                                 />
+//                                 <Route path="/login" component={Login} />
+//                                 <Route path="/reset" component={ResetPasword} />
+//                             </HashRouter>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </>
+//     );
+// }
 
-            <div className="welcome-container">
-                <div className="logo-dot"></div>
-                <div className="circle-container">
-                    <div className="logo-large">
-                        <h1 className="title">Our Circle</h1>
-                        <HashRouter>
-                            <Route exact path="/" component={Registration} />
-                            <Route path="/login" component={Login} />
-                            <Route path="/reset" component={ResetPasword} />
-                        </HashRouter>
+export default class Welcome extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            isVisible: false,
+        };
+        // this.handleChange = this.handleChange.bind(this); used with WHEN onChange={this.handleChange}
+    }
+
+    toggle() {
+        // this is if (this.state.uploaderIsVisible) condition:
+        this.setState({ isVisible: !this.state.isVisible });
+    }
+
+    render() {
+        return (
+            <>
+                <div className="welcome-container">
+                    <div
+                        className="logo-dot"
+                        onClick={() => this.toggle()}
+                    ></div>
+                    <div className="circle-container">
+                        <div className="logo-large">
+                            <h1 className="title">Our Circle</h1>
+
+                            {this.state.isVisible && (
+                                <div className="popup-form">
+                                    <HashRouter>
+                                        <Route
+                                            exact
+                                            path="/"
+                                            component={Registration}
+                                        />
+                                        <Route
+                                            path="/login"
+                                            component={Login}
+                                        />
+                                        <Route
+                                            path="/reset"
+                                            component={ResetPasword}
+                                        />
+                                    </HashRouter>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </>
-    );
+            </>
+        );
+    }
 }
