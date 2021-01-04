@@ -11,7 +11,7 @@ export default function ProfilePic({ first, last, url, toggleUploader }) {
                     alt={first + " " + last}
                     onClick={toggleUploader}
                 />
-                <div className="tiny-dot"></div>
+                <div className="tiny-dot" onClick={toggleUploader}></div>
             </div>
         </>
     );
