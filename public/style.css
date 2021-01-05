@@ -56,7 +56,7 @@ body {
 }
 
 .logo-dot:hover {
-    transform: scale(1.1);
+    transform: scale(0.9);
 }
 
 .form {
@@ -83,9 +83,7 @@ button {
 button:active {
     background-color: #3d3b3b;
     color: white;
-    margin-top: 20px;
     border: 1px solid #3d3b3b;
-    border-radius: 20px;
 }
 
 button:focus {
@@ -98,6 +96,7 @@ button:focus {
     border: 10px solid #3d3b3b;
     border-radius: 100px;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .uploader-component {
@@ -142,6 +141,11 @@ header {
     border-radius: 100%;
     background-color: #c84010;
     align-self: flex-end;
+    cursor: pointer;
+}
+
+.tiny-dot:hover {
+    transform: scale(1.2);
 }
 
 .user-image-large {
