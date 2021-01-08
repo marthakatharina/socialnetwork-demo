@@ -14,7 +14,7 @@ const s3 = require("./s3");
 const { s3Url } = require("./config.json");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
-    origins: "https://socialnetwork-demo.herokuapp.com",
+    origins: "socialnetwork-demo.herokuapp.com" || "localhost:8080",
 }); // localhost:8080 has to be change to a https domain if online
 
 // app.use(
