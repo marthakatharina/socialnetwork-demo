@@ -11,11 +11,16 @@ const multer = require("multer"); // multer defines where to save files
 const uidSafe = require("uid-safe"); // encodes file name
 const path = require("path"); // grabs extention (jpg)
 const s3 = require("./s3");
-const { s3Url } = require("./config.json");
+// const { s3Url } = require("./config.json");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
     origins: "localhost:8080",
 }); // localhost:8080 has to be change to a https domain if online
+const io = require("socket.io")(server, {
+    origins: "localhost:8080 https://socialnetwork-demo.herokuapp.com:*",
+});
+
+app.use(express.json());
 
 // app.use(
 //     cookieSession({
@@ -55,7 +60,6 @@ if (process.env.NODE_ENV != "production") {
 }
 
 app.use(express.static("public"));
-app.use(express.json());
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
