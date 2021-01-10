@@ -49,11 +49,16 @@ export default class Welcome extends React.Component {
         return (
             <>
                 <div className="welcome-container">
-                    <div
-                        className="logo-dot"
-                        onClick={() => this.toggle()}
-                    ></div>
+                    {/* <div
+                            className="logo-dot"
+                            onClick={() => this.toggle()}
+                        ></div> */}
                     <div className="circle-container">
+                        <div
+                            className="logo-dot"
+                            onClick={() => this.toggle()}
+                        ></div>
+
                         <div className="logo-large">
                             <h1 className="title" onClick={() => this.toggle()}>
                                 Our Circle
