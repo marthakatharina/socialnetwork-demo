@@ -195,6 +195,7 @@ textarea {
         display: flex;
         justify-content: start;
         align-self: center;
+        /* overflow-y: hidden; */
     }
 }
 
@@ -203,5 +204,26 @@ textarea {
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-items: center;
     }
+
+    .circle-container {
+        padding-top: 40px;
+        padding-right: 40px;
+    }
+
+    /* .logo-large {
+        width: 270px;
+        height: 270px;
+        border: 10px solid #3d3b3b;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo-dot {
+        width: 20px;
+        height: 20px;
+    } */
 }
